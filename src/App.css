@@ -198,6 +198,25 @@ button[value="Deactive"] {
   color: #000 !important;
   padding: 5px 30px;
 }
+.dropdown a {
+  background: transparent !important;
+  border: none;
+  color: #007bff !important;
+  padding-left: 16px;
+}
+.dropdown a::after {
+  display: none;
+}
+.dropdown.show {
+  margin-bottom: 70px;
+}
+.dropdown-menu {
+  border: none !important;
+  padding-left: 10px !important;
+}
+.dropdown-menu a {
+  text-decoration: none !important;
+}
 
 /* 5 Columns */
 

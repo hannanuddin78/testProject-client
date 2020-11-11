@@ -24,9 +24,7 @@ const SideBar = () => {
                 </a>
 
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <Link to="/promoCode">
-                    <a className="dropdown-item">Promo Codes</a>
-                  </Link>
+                  <Link to="/promoCode">Promo Codes</Link>
                   <a className="dropdown-item" href="/addPromoCode">
                     Add Promo Codes
                   </a>
