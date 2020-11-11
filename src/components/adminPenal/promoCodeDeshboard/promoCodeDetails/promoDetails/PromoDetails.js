@@ -1,6 +1,7 @@
 import { Container } from "@material-ui/core";
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const PromoDetails = ({ promoDet, index }) => {
   return (
@@ -13,25 +14,44 @@ const PromoDetails = ({ promoDet, index }) => {
             </Col>
             <Col md={6} className="promoBtn">
               <div className="float-right mr-5">
-                <Button className="promo-btn " variant="warning">
-                  Edit
-                </Button>
-                <Button className="promo-btn " variant="warning">
-                  Edit
-                </Button>
+                <Link to={"/updatePromoCode/" + promoDet._id}>
+                  <Button className="promo-btn mr-3" variant="warning">
+                    Edit
+                  </Button>
+                </Link>
+                {promoDet.active === "Active" && (
+                  <Button className="promo-btn" variant="outline-success">
+                    {promoDet.active}
+                  </Button>
+                )}
+                {promoDet.active === "Deactive" && (
+                  <Button className="promo-btn" variant="outline-danger">
+                    {promoDet.active}
+                  </Button>
+                )}
               </div>
             </Col>
           </Row>
           <Row className="promoDtls">
-            <Col md={15}></Col>
-            <Col md={15}>
-              <p>Usages : {promoDet.useTime}</p>
+            <Col md={12}>
+              <div className="codeDetails d-flex">
+                <div className="cd-col">
+                  <p>Create At : {new Date(promoDet.createDate).toDateString("dd/MM/yyyy")}</p>
+                </div>
+                <div className="cd-col">
+                  <p>Usages : {promoDet.useTime}</p>
+                </div>
+                <div className="cd-col">
+                  <p>Discount Rate : {promoDet.discountRate}%</p>
+                </div>
+                <div className="cd-col">
+                  <p>Start Date : {new Date(promoDet.startDate).toDateString("dd/MM/yyyy")}</p>
+                </div>
+                <div className="cd-col">
+                  <p>End Date : {new Date(promoDet.endDate).toDateString("dd/MM/yyyy")}</p>
+                </div>
+              </div>
             </Col>
-            <Col md={15}>
-              <p>Discount Rate : {promoDet.discountRate}%</p>
-            </Col>
-            <Col md={15}></Col>
-            <Col md={15}></Col>
           </Row>
         </Col>
       </Row>

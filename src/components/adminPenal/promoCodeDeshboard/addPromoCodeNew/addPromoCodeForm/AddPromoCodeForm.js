@@ -34,7 +34,7 @@ const AddPromoCodeForm = () => {
   };
 
   const handleAddPromoCode = () => {
-    const CodeInfo = { ...promoCodeInfo, ...selectedDate };
+    const CodeInfo = { ...promoCodeInfo, ...selectedDate, createDate: new Date() };
     fetch("https://enigmatic-badlands-36963.herokuapp.com/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

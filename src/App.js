@@ -14,6 +14,7 @@ import ConfirmOrder from "./components/adminPenal/order/orderDashboard/orderDeta
 import CancelOrder from "./components/adminPenal/order/orderDashboard/orderDetails/cancelOrder/CancelOrder";
 import LogIn from "./components/login/LogIn";
 import PrivateRoute from "./components/login/PrivateRoute/PrivateRoute";
+import PromoCodeEdit from "./components/adminPenal/promoCodeDeshboard/promoCodeDetails/promoDetails/promoCodeEdit/PromoCodeEdit";
 
 export const UserContext = createContext();
 
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/confirmOrders" component={ConfirmOrder} />
           <Route exact path="/cancelOrders" component={CancelOrder} />
           <Route exact path="/login" component={LogIn} />
+          <Route exact path="/updatePromoCode/:id" component={PromoCodeEdit} />
           <PrivateRoute path="/admin">
             <AdminDashboard></AdminDashboard>
           </PrivateRoute>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import PromoDetails from "./promoDetails/PromoDetails";
 
 const PromoCodeDetails = () => {
@@ -12,7 +13,9 @@ const PromoCodeDetails = () => {
   }, []);
   return (
     <div>
-      <Button variant="light">Add Promo Code</Button>
+      <Link to="/addPromoCode">
+        <Button variant="light">Add Promo Code</Button>
+      </Link>
       {promoCodeDetails.map((promoDet, index) => (
         <PromoDetails promoDet={promoDet} index={index} key={promoDet._id} />
       ))}

@@ -3,11 +3,11 @@ import { Button } from "react-bootstrap";
 
 const AllOrderDetails = ({ allOrders, index }) => {
   const [statusChange, setStatusChange] = useState([]);
-  console.log(statusChange.id);
   const handleStatus = (e, id) => {
     const newInfo = { ...statusChange };
     newInfo[e.target.name] = e.target.value;
     setStatusChange(newInfo);
+    console.log(newInfo);
     fetch(`https://enigmatic-badlands-36963.herokuapp.com/updateStatus/${allOrders._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
