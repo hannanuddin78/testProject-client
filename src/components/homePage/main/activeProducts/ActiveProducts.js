@@ -5,7 +5,7 @@ const ActiveProducts = ({ activePd }) => {
   const handleAddProduct = (activePd) => {
     const addKey = activePd;
     const addCart = { ...addKey, quantity: 1 };
-    fetch("http://localhost:5000/addToCart", {
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/addToCart", {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(addCart),

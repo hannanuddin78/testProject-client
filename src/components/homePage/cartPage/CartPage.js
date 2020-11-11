@@ -21,14 +21,14 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/allCartItems")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/allCartItems")
       .then((res) => res.json())
       .then((data) => setCartItems(data));
   }, [cartItems]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/checkout", {
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/checkout", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ totalPrice: loggedInUser, status: "" }),

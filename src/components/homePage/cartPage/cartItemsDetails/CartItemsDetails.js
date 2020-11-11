@@ -6,7 +6,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 const CartItemsDetails = ({ items }) => {
   const handleCancel = (e, id) => {
     console.log(id);
-    fetch("http://localhost:5000/delete/" + id, {
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/delete/" + id, {
       method: "DELETE",
     })
       .then((res) => res.json())

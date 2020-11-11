@@ -12,13 +12,13 @@ const Header = () => {
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue] = useContext(UserContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cartLength")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/cartLength")
       .then((res) => res.json())
       .then((data) => setCartLength(data));
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`http://localhost:5000/searchProduct?search=${e.target.value}`)
+    fetch(`https://enigmatic-badlands-36963.herokuapp.com/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };

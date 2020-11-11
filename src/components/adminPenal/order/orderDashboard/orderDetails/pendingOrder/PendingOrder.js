@@ -10,7 +10,7 @@ const PendingOrder = () => {
 
   useEffect(() => {
     const pending = "";
-    fetch("http://localhost:5000/allOrders")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/allOrders")
       .then((res) => res.json())
       .then((data) => {
         const setConfirm = data.filter((setC) => setC.status === pending);

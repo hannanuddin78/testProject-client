@@ -6,7 +6,7 @@ import AllOrderDetails from "./allOrderDetails/AllOrderDetails";
 const OrderDetails = () => {
   const [allOrders, setAllOrders] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/allOrders")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/allOrders")
       .then((res) => res.json())
       .then((data) => setAllOrders(data));
   }, [allOrders]);

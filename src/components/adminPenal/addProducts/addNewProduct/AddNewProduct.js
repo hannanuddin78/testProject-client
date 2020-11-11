@@ -34,7 +34,7 @@ const AddNewProduct = () => {
     formData.append("size", info.size);
     formData.append("active", info.active);
 
-    fetch("http://localhost:5000/addProducts", {
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/addProducts", {
       method: "POST",
       body: formData,
     })

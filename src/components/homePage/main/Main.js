@@ -8,7 +8,7 @@ const Main = () => {
 
   useEffect(() => {
     const active = "Yes";
-    fetch("http://localhost:5000/seeProducts/" + active)
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/seeProducts/" + active)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   }, []);

@@ -31,7 +31,7 @@ const OrderSummary = ({ cartItems }) => {
   const handleSubmitCode = (e) => {
     e.preventDefault();
     console.log(promoCode);
-    fetch("http://localhost:5000/applyPromoCode")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/applyPromoCode")
       .then((res) => res.json())
       .then((data) => {
         const aplCode = data.find((dt) => dt.promoCode.toString() === promoCode);

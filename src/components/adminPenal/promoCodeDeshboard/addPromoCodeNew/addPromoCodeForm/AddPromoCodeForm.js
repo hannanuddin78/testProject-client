@@ -35,7 +35,7 @@ const AddPromoCodeForm = () => {
 
   const handleAddPromoCode = () => {
     const CodeInfo = { ...promoCodeInfo, ...selectedDate };
-    fetch("http://localhost:5000/addPromoCode", {
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(CodeInfo),

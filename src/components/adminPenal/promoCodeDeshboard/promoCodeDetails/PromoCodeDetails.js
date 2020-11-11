@@ -6,7 +6,7 @@ const PromoCodeDetails = () => {
   const [promoCodeDetails, setPromoCodeDetails] = useState([]);
   console.log(promoCodeDetails);
   useEffect(() => {
-    fetch("http://localhost:5000/SeePromoCode")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/SeePromoCode")
       .then((res) => res.json())
       .then((data) => setPromoCodeDetails(data));
   }, []);

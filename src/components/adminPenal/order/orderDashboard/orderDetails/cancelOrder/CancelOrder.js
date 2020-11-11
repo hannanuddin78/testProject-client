@@ -11,7 +11,7 @@ const CancelOrder = () => {
 
   useEffect(() => {
     const cancel = "Cancel";
-    fetch("http://localhost:5000/allOrders")
+    fetch("https://enigmatic-badlands-36963.herokuapp.com/allOrders")
       .then((res) => res.json())
       .then((data) => {
         const setCancel = data.filter((setC) => setC.status.toString() === cancel);
