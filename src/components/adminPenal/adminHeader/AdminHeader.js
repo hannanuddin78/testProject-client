@@ -4,13 +4,13 @@ import logoImg from "../../../image/logo.png";
 
 const AdminHeader = () => {
   return (
-    <Container>
+    <Container className="mt-3 mb-3">
       <Row>
         <Col md={6}>
           <img src={logoImg} alt="" />
         </Col>
         <Col md={6}>
-          <p>user name</p>
+          <p className="float-right">user name</p>
         </Col>
       </Row>
     </Container>

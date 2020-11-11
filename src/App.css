@@ -10,3 +10,226 @@
 .product-btn {
   margin: 0px 140px;
 }
+.checkout-btn {
+  background-color: yellow;
+  padding: 5px 25px;
+}
+.card {
+  border-radius: 10px !important;
+  border: none;
+  -webkit-box-shadow: 1px 1px 5px 0px rgb(211, 211, 211);
+  -moz-box-shadow: 1px 1px 5px 0px rgb(211, 211, 211);
+  box-shadow: 1px 1px 5px 0px rgb(211, 211, 211);
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.card-title.h5 {
+  margin-top: 10px;
+}
+p.card-text {
+  margin-top: 25px;
+}
+.card-text .float-right {
+  background: yellow;
+  padding: 0px 5px;
+}
+.cardButton button {
+  border: none;
+  background: yellow;
+  border-radius: 20px;
+  padding: 5px 15px !important;
+  font-weight: 500;
+}
+.card-body {
+  position: relative;
+}
+.card-body .cardButton {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  background: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: all 0.5s ease;
+  visibility: hidden;
+  opacity: 0;
+}
+.card-body:hover .cardButton {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+.osVlu p:first-child {
+  flex-grow: 1;
+}
+.checkoutForm {
+  margin: 20px 0;
+}
+.orderSummary,
+.cartItems {
+  margin-top: 45px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+}
+.dltI svg {
+  position: absolute;
+  top: -50px;
+  right: 20px;
+  cursor: pointer;
+}
+.cartItemDetails p {
+  margin-bottom: 10px;
+}
+.cartItemDetails p.productName {
+  margin-bottom: 30px;
+}
+.cartItemDetails {
+  border-bottom: 1px solid #ddd;
+  padding: 30px 17px;
+}
+.pwhite p {
+  color: #fff;
+  opacity: 0;
+}
+.checkoutForm input[type="checkbox"] {
+  margin-top: 15px;
+}
+.checkoutForm input[type="submit"] {
+  background: yellow;
+  border: none;
+  padding: 7px 60px;
+}
+.orderSummeryText.text-center {
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.orderSummeryText p {
+  margin: 0;
+}
+.orderSummaryDetails {
+  padding: 20px 15px;
+}
+.orderSummaryDetails p {
+  margin-bottom: 8px;
+}
+.applyCoupon {
+  padding: 20px 15px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.applyCoupon input[type="text"] {
+  padding: 5px 10px;
+  max-width: 150px;
+  color: #ddd;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: 2px solid #ddd;
+}
+.applyCoupon input[type="submit"] {
+  padding: 5px 15px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: 2px solid #ddd;
+  border-left: 0;
+}
+.totalPrice {
+  padding: 15px 15px 5px;
+}
+.promo-btn {
+  padding: 5px 25px !important;
+  border-radius: 20px !important;
+}
+.promo-edit {
+  margin-top: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.MuiGrid-container {
+  margin-bottom: 15px;
+  margin-top: -15px;
+}
+.MuiFormControl-root {
+  width: 100%;
+}
+button[value="Active"] {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+button[value="Deactive"] {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.promoDetails {
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+}
+.promoBtn {
+  margin-bottom: 20px;
+}
+.promoDtls {
+  margin-top: 15px;
+}
+.login-page {
+  padding-top: 30px;
+}
+.login-page h1 {
+  text-align: center;
+}
+.loginForm {
+  max-width: 320px;
+  margin: 25px auto;
+  padding-bottom: 10px;
+}
+.loginFormBtn {
+  text-align: center;
+  margin-top: 5px;
+}
+.loginFormBtn button {
+  background: yellow;
+  border-radius: 15px;
+  border: none;
+  color: #000 !important;
+  padding: 5px 30px;
+}
+
+/* 5 Columns */
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-xs-15 {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 768px) {
+  .col-sm-15 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-15 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-15 {
+    width: 20%;
+    float: left;
+  }
+}

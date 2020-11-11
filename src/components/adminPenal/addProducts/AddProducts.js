@@ -7,7 +7,7 @@ const AddProducts = () => {
   return (
     <Container>
       <Row>
-        <Col md={12}>
+        <Col md={12} className="mb-3">
           <Link to="/addNewProduct">
             <Button variant="outline-primary">Add New Product</Button>
           </Link>

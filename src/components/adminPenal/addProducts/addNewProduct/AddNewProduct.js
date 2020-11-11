@@ -6,7 +6,7 @@ import SideBar from "../../sideBar/SideBar";
 
 const AddNewProduct = () => {
   const [info, setInfo] = useState({});
-  console.log(info);
+
   const [file, setFile] = useState(null);
 
   const history = useHistory();
@@ -40,7 +40,6 @@ const AddNewProduct = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        alert("You Add Product SuccessFully");
         history.push("/admin");
       })
       .catch((error) => {

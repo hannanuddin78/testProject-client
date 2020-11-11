@@ -19,21 +19,24 @@ const ActiveProducts = ({ activePd }) => {
   };
 
   return (
-    <Col md={3}>
+    <Col md={15}>
       <Card>
         <Card.Body>
           <Card.Img
+            style={{ height: "200px" }}
             className="img-fluid"
             variant="top"
             src={`data:image/png;base64,${activePd.image.img}`}
           />
           <Card.Title>{activePd.pdName}</Card.Title>
           <Card.Text>
-            <p className="float-left">BDT. {activePd.pdPrice} </p>
-            <p className="float-right">{activePd.disPrice}</p>
+            <span className="float-left">BDT. {activePd.pdPrice} </span>
+            <span className="float-right">{activePd.disPrice}%</span>
           </Card.Text>
+          <div className="cardButton d-flex align-items-center justify-content-center">
+            <button onClick={() => handleAddProduct(activePd)}>Add to Cart</button>
+          </div>
         </Card.Body>
-        <button onClick={() => handleAddProduct(activePd)}>Add to Cart</button>
       </Card>
     </Col>
   );
