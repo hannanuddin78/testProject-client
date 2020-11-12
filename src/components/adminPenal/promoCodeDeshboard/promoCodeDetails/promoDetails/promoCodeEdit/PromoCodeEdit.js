@@ -12,6 +12,7 @@ const PromoCodeEdit = () => {
   const { id } = useParams();
   const [defaultCode, setDefaultCode] = useState([]);
   const [updateCodeInfo, setUpdateCodeInfo] = useState({});
+
   const history = useHistory();
 
   const [updateDate, setUpdateDate] = useState({
@@ -48,7 +49,6 @@ const PromoCodeEdit = () => {
 
   const handleUpdatePromoCode = () => {
     const updateInfo = { ...updateCodeInfo, ...updateDate, createDate: new Date() };
-    console.log(updateInfo);
     fetch(`https://enigmatic-badlands-36963.herokuapp.com/updatePromo/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

@@ -7,7 +7,6 @@ const AllOrderDetails = ({ allOrders, index }) => {
     const newInfo = { ...statusChange };
     newInfo[e.target.name] = e.target.value;
     setStatusChange(newInfo);
-    console.log(newInfo);
     fetch(`https://enigmatic-badlands-36963.herokuapp.com/updateStatus/${allOrders._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

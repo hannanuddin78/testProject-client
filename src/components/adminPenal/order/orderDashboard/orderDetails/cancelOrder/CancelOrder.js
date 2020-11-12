@@ -7,7 +7,6 @@ import Cancel from "./cancel/Cancel";
 
 const CancelOrder = () => {
   const [cancelOrders, setCancelOrders] = useState([]);
-  console.log(cancelOrders);
 
   useEffect(() => {
     const cancel = "Cancel";
