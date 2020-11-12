@@ -79,6 +79,15 @@ p.card-text {
   right: 20px;
   cursor: pointer;
 }
+.newUser-btn {
+  cursor: pointer;
+}
+.user-error {
+  color: red;
+}
+.user-success {
+  color: green;
+}
 .cartItemDetails p {
   margin-bottom: 10px;
 }

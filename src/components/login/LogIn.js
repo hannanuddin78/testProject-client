@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -10,7 +10,15 @@ const LogIn = () => {
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue, login, setLogin] = useContext(
     UserContext
   );
-  console.log(loggedInUser);
+  const [ifNewUser, setIfNewUser] = useState(false);
+  const [user, setUser] = useState({
+    isSignIn: false,
+    name: "",
+    email: "",
+    password: "",
+    error: "",
+    success: "",
+  });
 
   const history = useHistory();
   const location = useLocation();
@@ -19,22 +27,119 @@ const LogIn = () => {
     firebase.initializeApp(firebaseConfig);
   }
 
-  const handleNewUser = (e) => {
+  const handleBlur = (e) => {
+    //collection from information when i creat account
+    let isFieldValid = true;
+    if (e.target.name === "email") {
+      isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+    }
+    if (e.target.name === "password") {
+      const ifPasswordLength = e.target.value.length >= 5;
+      const needsPasswordNumber = /\d{1}/.test(e.target.value);
+      isFieldValid = ifPasswordLength && needsPasswordNumber;
+    }
+    if (isFieldValid) {
+      const isNewUser = { ...user };
+      isNewUser[e.target.name] = e.target.value;
+      setUser(isNewUser);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    //this function collects data from and send data to firebase
+    if (ifNewUser && user.email && user.password) {
+      //create new user who sign in
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = "";
+          newUserInfo.success = true;
+          setUser(newUserInfo);
+          updateUserInfo(user.name);
+          setLogin(newUserInfo);
+        })
+        .catch((err) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = err.message;
+          newUserInfo.success = false;
+          setUser(newUserInfo);
+        });
+    }
+    if (!ifNewUser && user.email && user.password) {
+      //sign in user email and password
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = "";
+          newUserInfo.name = res.user.displayName;
+          newUserInfo.success = true;
+          setUser(newUserInfo);
+          setLogin(newUserInfo);
+          history.replace(from);
+        })
+        .catch((err) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = err.message;
+          newUserInfo.success = false;
+          setUser(newUserInfo);
+        });
+    }
     e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    console.log(email, password);
+  };
+  const updateUserInfo = ({ name }) => {
+    var user = firebase.auth().currentUser;
+    user
+      .updateProfile({
+        displayName: name,
+      })
+      .then((res) => {
+        console.log("user name update successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleSignInBtn = () => {
+    //google Sign In function
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(function (result) {
-        setLogin(result);
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        const { displayName, email } = res.user;
+        const signInUser = {
+          isSignIn: true,
+          name: displayName,
+          email: email,
+        };
+        setUser(signInUser);
+        setLogin(signInUser);
         history.replace(from);
       })
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const handleGoogleSignOutBtn = () => {
+    //google sign out function
+    firebase
+      .auth()
+      .signOut()
+      .then((res) => {
+        const signOutUser = {
+          isSignIn: false,
+          name: "",
+          email: "",
+        };
+        setUser(signOutUser);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   };
 
@@ -44,18 +149,77 @@ const LogIn = () => {
       <div className="row" style={{ height: "100vh" }}>
         <div className="col-md-12">
           <div className="loginForm shadow p-4">
-            <div className="form-group">
-              <label>User Name</label>
-              <input id="email" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input id="password" type="password" className="form-control" />
-            </div>
-            <div className="form-group loginFormBtn">
-              <button onClick={handleNewUser} className="text-danger">
-                Sign In
-              </button>
+            <form onSubmit={handleSubmit}>
+              {ifNewUser && (
+                <div className="form-group">
+                  <label>User Name</label>
+                  <input onBlur={handleBlur} name="name" type="text" className="form-control" />
+                </div>
+              )}
+              <div className="form-group">
+                <label>User email</label>
+                <input onBlur={handleBlur} name="email" type="text" className="form-control" />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  onBlur={handleBlur}
+                  name="password"
+                  type="password"
+                  className="form-control"
+                />
+              </div>
+              {ifNewUser && (
+                <div className="form-group">
+                  <label>Confirm Password</label>
+                  <input
+                    onBlur={handleBlur}
+                    name="password"
+                    type="password"
+                    className="form-control"
+                  />
+                </div>
+              )}
+              <div className="form-group loginFormBtn user-error">
+                <p>{user.error}</p>
+                {login.email && (
+                  <p className="user-success">
+                    User {ifNewUser ? "Created" : "Logged In"} Successfully Done
+                  </p>
+                )}
+              </div>
+              <div className="form-group loginFormBtn">
+                <button type="submit" className="text-danger">
+                  {ifNewUser ? "Sign Up" : "Sign In"}
+                </button>
+              </div>
+              <div
+                onClick={() => setIfNewUser(!ifNewUser)}
+                className="form-group loginFormBtn newUser-btn"
+              >
+                {ifNewUser ? (
+                  <p>Already have an account? Login</p>
+                ) : (
+                  <p>
+                    Don’t have an account? <br /> Create an account
+                  </p>
+                )}
+              </div>
+            </form>
+            <div className="d-flex justify-content-center">
+              {user.isSignIn ? (
+                <button
+                  onClick={handleGoogleSignOutBtn}
+                  type="button"
+                  className="btn btn-danger d-flex justify-content-center"
+                >
+                  Sign Out To Google
+                </button>
+              ) : (
+                <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
+                  Continue with Google
+                </button>
+              )}
             </div>
           </div>
         </div>

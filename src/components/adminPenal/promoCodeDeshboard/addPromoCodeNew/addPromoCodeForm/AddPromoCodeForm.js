@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const AddPromoCodeForm = () => {
   const [promoCodeInfo, setPromoCodeInfo] = useState({});
-
+  console.log(promoCodeInfo);
   const history = useHistory();
 
   const [selectedDate, setSelectedDate] = useState({
@@ -28,7 +28,8 @@ const AddPromoCodeForm = () => {
   };
 
   const handleBlur = (e) => {
-    const newInfo = { ...promoCodeInfo };
+    let code = document.getElementById("promoCode").value.toUpperCase();
+    const newInfo = { ...promoCodeInfo, promoCode: code };
     newInfo[e.target.name] = e.target.value;
     setPromoCodeInfo(newInfo);
   };
@@ -54,7 +55,7 @@ const AddPromoCodeForm = () => {
         <form>
           <div className="form-group">
             <label>Promo Code</label>
-            <input onBlur={handleBlur} type="text" className="form-control" name="promoCode" />
+            <input type="text" id="promoCode" className="form-control text-uppercase" />
           </div>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">

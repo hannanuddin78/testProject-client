@@ -16,9 +16,7 @@ const AdminHeader = () => {
             <img src={logoImg} alt="" />
           </Link>
         </Col>
-        <Col md={6}>
-          <p className="float-right">user name</p>
-        </Col>
+        <Col md={6}>{login.email && <h4 className="float-right mt-3">{login.name}</h4>}</Col>
       </Row>
     </Container>
   );

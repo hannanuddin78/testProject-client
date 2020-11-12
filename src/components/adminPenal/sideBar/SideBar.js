@@ -20,7 +20,7 @@ const SideBar = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Dropdown link
+                  Pomotion
                 </a>
 
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">

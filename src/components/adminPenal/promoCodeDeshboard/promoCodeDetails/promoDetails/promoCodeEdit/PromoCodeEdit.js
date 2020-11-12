@@ -93,11 +93,11 @@ const PromoCodeEdit = () => {
                       margin="normal"
                       id="date-picker-inline"
                       label="Start Date"
-                      //   disabled={isDisabled}
                       allowKeyboardControl={false}
                       readOnly={true}
                       autoFill={false}
-                      value={defaultCode.startDate}
+                      defaultValue={defaultCode.startDate}
+                      value={updateDate.startDate}
                       onChange={handleDateStart}
                       disable
                       KeyboardButtonProps={{
@@ -109,7 +109,8 @@ const PromoCodeEdit = () => {
                       id="date-picker-dialog"
                       label="End Date"
                       format="dd/MM/yyyy"
-                      value={defaultCode.endDate}
+                      defaultValue={defaultCode.endDate}
+                      value={updateDate.endDate}
                       onChange={handleDateEnd}
                       KeyboardButtonProps={{
                         "aria-label": "change date",
