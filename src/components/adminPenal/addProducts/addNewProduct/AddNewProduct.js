@@ -6,8 +6,12 @@ import SideBar from "../../sideBar/SideBar";
 
 const AddNewProduct = () => {
   const [info, setInfo] = useState({});
-
   const [file, setFile] = useState(null);
+  const [toggle, setToggle] = useState({ disabled: "Yes" });
+  const handleToggle = (e) => {
+    const id = e.target.id;
+    setToggle({ disabled: id });
+  };
 
   const history = useHistory();
 
@@ -113,11 +117,25 @@ const AddNewProduct = () => {
                 </div>
                 <div className="form-group">
                   <label>Active</label>
-                  <div className="float-right">
-                    <Button onBlur={handleBlur} variant="secondary" name="active" value="Yes">
+                  <div onClick={handleToggle} className="float-right">
+                    <Button
+                      onClick={handleBlur}
+                      disabled={toggle.disabled === "Yes"}
+                      id="Yes"
+                      variant="secondary"
+                      name="active"
+                      value="Yes"
+                    >
                       Yes
                     </Button>
-                    <Button onBlur={handleBlur} variant="danger" name="active" value="No">
+                    <Button
+                      onClick={handleBlur}
+                      disabled={toggle.disabled === "No"}
+                      id="No"
+                      variant="danger"
+                      name="active"
+                      value="No"
+                    >
                       No
                     </Button>
                   </div>

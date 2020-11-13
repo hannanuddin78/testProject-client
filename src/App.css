@@ -247,6 +247,17 @@ label#date-picker-dialog-label {
   flex: 1 0 18%;
   text-align: center;
 }
+.btn.disabled,
+.btn:disabled {
+  color: grey !important;
+  background: white !important;
+  border-color: grey !important;
+}
+button#Yes,
+button#No {
+  padding: 3px 17px;
+  border-radius: 20px;
+}
 
 /* 5 Columns */
 

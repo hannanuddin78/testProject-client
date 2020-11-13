@@ -51,7 +51,7 @@ const LogIn = () => {
       //create new user who sign in
       firebase
         .auth()
-        .createUserWithEmailAndPassword(user.email, user.password)
+        .createUserWithEmailAndPassword(user.email, user.name, user.password)
         .then((res) => {
           const newUserInfo = { ...user };
           newUserInfo.error = "";
@@ -73,13 +73,16 @@ const LogIn = () => {
         .auth()
         .signInWithEmailAndPassword(user.email, user.password)
         .then((res) => {
+          console.log(res);
           const newUserInfo = { ...user };
           newUserInfo.error = "";
           newUserInfo.name = res.user.displayName;
           newUserInfo.success = true;
           setUser(newUserInfo);
           setLogin(newUserInfo);
-          history.replace(from);
+          storeAuthToken();
+          // history.replace(from);
+          // console.log("sign in user", res.user);
         })
         .catch((err) => {
           const newUserInfo = { ...user };
@@ -119,6 +122,7 @@ const LogIn = () => {
         };
         setUser(signInUser);
         setLogin(signInUser);
+        storeAuthToken();
         history.replace(from);
       })
       .catch((err) => {
@@ -140,6 +144,18 @@ const LogIn = () => {
       })
       .catch((err) => {
         console.log(err.message);
+      });
+  };
+
+  const storeAuthToken = () => {
+    firebase
+      .auth()
+      .currentUser.getIdToken(/* forceRefresh */ true)
+      .then(function (idToken) {
+        sessionStorage.setItem("token", idToken);
+      })
+      .catch(function (error) {
+        // Handle error
       });
   };
 

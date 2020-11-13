@@ -6,6 +6,8 @@ const PrivateRoute = ({ children, ...rest }) => {
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue, login, setLogin] = useContext(
     UserContext
   );
+  const user = sessionStorage.getItem("user");
+  console.log(user);
   return (
     <Route
       {...rest}
