@@ -8,6 +8,10 @@ import CheckOutPopUp from "./orderSummary/checkOutPopUp/CheckOutPopUp";
 import OrderSummary from "./orderSummary/OrderSummary";
 
 const CartPage = () => {
+  const [loggedInUser] = useContext(UserContext);
+
+  const [cartItems, setCartItems] = useState([]);
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -16,22 +20,20 @@ const CartPage = () => {
     setIsOpen(false);
   };
 
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-
-  const [cartItems, setCartItems] = useState([]);
-
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/allCartItems")
+    fetch("http://localhost:5000/allCartItems", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    })
       .then((res) => res.json())
       .then((data) => setCartItems(data));
-  }, [cartItems]);
+  }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/checkout", {
+    fetch("http://localhost:5000/checkout", {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ totalPrice: loggedInUser, status: "" }),
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ totalPrice: loggedInUser, status: "Pending" }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -40,6 +42,7 @@ const CartPage = () => {
       .catch((error) => {
         console.error(error);
       });
+    e.preventDefault();
   };
 
   return (
@@ -59,8 +62,16 @@ const CartPage = () => {
                   <input type="checkbox" required /> I have read and agree to the Terms and
                   Conditions
                   <input className="float-right" type="submit" name="checkout" value="CHECKOUT" />
+                  <CheckOutPopUp modalIsOpen={modalIsOpen} closeModal={closeModal} />
                 </form>
-                <CheckOutPopUp modalIsOpen={modalIsOpen} closeModal={closeModal} />
+                {/* {cartItems.map((item) => (
+                  <CheckOutPopUp
+                    modalIsOpen={modalIsOpen}
+                    closeModal={closeModal}
+                    cartItems={item}
+                    key={item._id}
+                  />
+                ))} */}
               </Col>
             </Row>
           </Col>

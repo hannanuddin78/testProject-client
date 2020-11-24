@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 
-const AllOrderDetails = ({ allOrders, index }) => {
-  const [statusChange, setStatusChange] = useState([]);
+const AllOrderDetails = ({ allOrd, index, statusChange, setStatusChange }) => {
   const handleStatus = (e, id) => {
     const newInfo = { ...statusChange };
     newInfo[e.target.name] = e.target.value;
     setStatusChange(newInfo);
-    fetch(`https://enigmatic-badlands-36963.herokuapp.com/updateStatus/${allOrders._id}`, {
+    fetch(`http://localhost:5000/updateStatus/${allOrd._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ newInfo }),
@@ -15,7 +14,7 @@ const AllOrderDetails = ({ allOrders, index }) => {
       .then((response) => response.json())
       .then((response) => {
         if (response) {
-          document.getElementById(allOrders._id).style.display = "none";
+          document.getElementById(allOrd._id).style.display = "none";
         }
       });
   };
@@ -24,13 +23,13 @@ const AllOrderDetails = ({ allOrders, index }) => {
     <tbody>
       <tr>
         <td>{index + 1}</td>
-        <td>{allOrders._id}</td>
-        <td>{allOrders.totalPrice}</td>
+        <td>{allOrd._id}</td>
+        <td>{allOrd.totalPrice}</td>
         <td>
-          {allOrders.status === "" ? (
-            <div id={allOrders._id}>
+          {allOrd.status === "Pending" ? (
+            <div id={allOrd._id}>
               <Button
-                onClick={(e) => handleStatus(e, allOrders._id)}
+                onClick={(e) => handleStatus(e, allOrd._id)}
                 className="mr-2"
                 variant="warning"
                 name="status"
@@ -39,7 +38,7 @@ const AllOrderDetails = ({ allOrders, index }) => {
                 Confirm
               </Button>
               <Button
-                onClick={(e) => handleStatus(e, allOrders._id)}
+                onClick={(e) => handleStatus(e, allOrd._id)}
                 variant="danger"
                 name="status"
                 value="Cancel"
@@ -51,7 +50,7 @@ const AllOrderDetails = ({ allOrders, index }) => {
             ""
           )}
         </td>
-        {allOrders.status === "" ? <td>pending</td> : <td>{allOrders.status}</td>}
+        {allOrd.status === "Pending" ? <td>pending</td> : <td>{allOrd.status}</td>}
       </tr>
     </tbody>
   );

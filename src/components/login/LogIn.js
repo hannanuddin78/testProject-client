@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase.config";
@@ -20,12 +19,13 @@ const LogIn = () => {
     success: "",
   });
 
-  const history = useHistory();
-  const location = useLocation();
-  const { from } = location.state || { from: { pathname: "/" } };
   if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
   }
+
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
 
   const handleBlur = (e) => {
     //collection from information when i creat account
@@ -43,15 +43,16 @@ const LogIn = () => {
       isNewUser[e.target.name] = e.target.value;
       setUser(isNewUser);
     }
+    e.preventDefault();
   };
 
   const handleSubmit = (e) => {
     //this function collects data from and send data to firebase
-    if (ifNewUser && user.email && user.password) {
+    if (ifNewUser && user.email && user.name && user.password) {
       //create new user who sign in
       firebase
         .auth()
-        .createUserWithEmailAndPassword(user.email, user.name, user.password)
+        .createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
           const newUserInfo = { ...user };
           newUserInfo.error = "";
@@ -73,18 +74,17 @@ const LogIn = () => {
         .auth()
         .signInWithEmailAndPassword(user.email, user.password)
         .then((res) => {
-          console.log(res);
           const newUserInfo = { ...user };
           newUserInfo.error = "";
-          newUserInfo.name = res.user.displayName;
           newUserInfo.success = true;
+          newUserInfo.name = res.user.displayName;
           setUser(newUserInfo);
           setLogin(newUserInfo);
           storeAuthToken();
-          // history.replace(from);
-          // console.log("sign in user", res.user);
+          sessionStorage.setItem("gmail", res.user.email);
         })
         .catch((err) => {
+          console.log(err);
           const newUserInfo = { ...user };
           newUserInfo.error = err.message;
           newUserInfo.success = false;
@@ -93,7 +93,7 @@ const LogIn = () => {
     }
     e.preventDefault();
   };
-  const updateUserInfo = ({ name }) => {
+  const updateUserInfo = (name) => {
     var user = firebase.auth().currentUser;
     user
       .updateProfile({
@@ -123,24 +123,7 @@ const LogIn = () => {
         setUser(signInUser);
         setLogin(signInUser);
         storeAuthToken();
-        history.replace(from);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-  const handleGoogleSignOutBtn = () => {
-    //google sign out function
-    firebase
-      .auth()
-      .signOut()
-      .then((res) => {
-        const signOutUser = {
-          isSignIn: false,
-          name: "",
-          email: "",
-        };
-        setUser(signOutUser);
+        sessionStorage.setItem("gmail", res.user.email);
       })
       .catch((err) => {
         console.log(err.message);
@@ -150,12 +133,13 @@ const LogIn = () => {
   const storeAuthToken = () => {
     firebase
       .auth()
-      .currentUser.getIdToken(/* forceRefresh */ true)
+      .currentUser.getIdToken(true)
       .then(function (idToken) {
         sessionStorage.setItem("token", idToken);
+        history.replace(from);
       })
       .catch(function (error) {
-        // Handle error
+        console.log(error);
       });
   };
 
@@ -223,19 +207,9 @@ const LogIn = () => {
               </div>
             </form>
             <div className="d-flex justify-content-center">
-              {user.isSignIn ? (
-                <button
-                  onClick={handleGoogleSignOutBtn}
-                  type="button"
-                  className="btn btn-danger d-flex justify-content-center"
-                >
-                  Sign Out To Google
-                </button>
-              ) : (
-                <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
-                  Continue with Google
-                </button>
-              )}
+              <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
+                Continue with Google
+              </button>
             </div>
           </div>
         </div>

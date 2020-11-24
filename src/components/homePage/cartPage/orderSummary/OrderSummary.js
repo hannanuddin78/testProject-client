@@ -29,9 +29,10 @@ const OrderSummary = ({ cartItems }) => {
   const allPrice = subTotal + ShpCharge;
 
   const handleSubmitCode = (e) => {
-    e.preventDefault();
-    console.log(promoCode);
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/applyPromoCode")
+    fetch("http://localhost:5000/applyPromoCode", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    })
       .then((res) => res.json())
       .then((data) => {
         const aplCode = data.find((dt) => dt.promoCode.toString() === promoCode);
@@ -44,6 +45,7 @@ const OrderSummary = ({ cartItems }) => {
           setApplyPromoCode(promoApply);
         }
       });
+    e.preventDefault();
   };
 
   setLoggedInUser(allPrice);

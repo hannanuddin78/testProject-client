@@ -9,8 +9,14 @@ const PendingOrder = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
 
   useEffect(() => {
-    const pending = "";
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/allOrders")
+    const pending = "Pending";
+    fetch("http://localhost:5000/allOrders", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         const setConfirm = data.filter((setC) => setC.status === pending);
@@ -26,25 +32,33 @@ const PendingOrder = () => {
             <SideBar />
           </Col>
           <Col md={10}>
-            <Row className="mt-5">
+            <Row className="mb-5">
               <Col md={2}>
                 <Link to="/orders">
-                  <Button variant="warning">All</Button>
+                  <Button variant="warning" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+                    All
+                  </Button>
                 </Link>
               </Col>
               <Col md={2}>
                 <Link to="/pendingOrders">
-                  <Button variant="warning">Pending</Button>
+                  <Button variant="primary" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+                    Pending
+                  </Button>
                 </Link>
               </Col>
               <Col md={2}>
                 <Link to="/confirmOrders">
-                  <Button variant="warning">Confirmed</Button>
+                  <Button variant="success" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+                    Confirmed
+                  </Button>
                 </Link>
               </Col>
               <Col md={2}>
                 <Link to="/cancelOrders">
-                  <Button variant="warning">Canceled</Button>
+                  <Button variant="danger" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+                    Canceled
+                  </Button>
                 </Link>
               </Col>
             </Row>

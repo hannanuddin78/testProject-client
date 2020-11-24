@@ -8,18 +8,7 @@ const AddNewProduct = () => {
   const [info, setInfo] = useState({});
   const [file, setFile] = useState(null);
   const [toggle, setToggle] = useState({ disabled: "Yes" });
-  const handleToggle = (e) => {
-    const id = e.target.id;
-    setToggle({ disabled: id });
-  };
-
   const history = useHistory();
-
-  const handleBlur = (e) => {
-    const newInfo = { ...info };
-    newInfo[e.target.name] = e.target.value;
-    setInfo(newInfo);
-  };
 
   const handleFileChange = (e) => {
     const newFile = e.target.files[0];
@@ -27,7 +16,6 @@ const AddNewProduct = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
     formData.append("pdName", info.productName);
@@ -38,8 +26,9 @@ const AddNewProduct = () => {
     formData.append("size", info.size);
     formData.append("active", info.active);
 
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/addProducts", {
+    fetch("http://localhost:5000/addProducts", {
       method: "POST",
+      // headers: { "Content-Type": "application/json" },
       body: formData,
     })
       .then((response) => response.json())
@@ -49,6 +38,17 @@ const AddNewProduct = () => {
       .catch((error) => {
         console.error(error);
       });
+    e.preventDefault();
+  };
+  const handleToggle = (e) => {
+    const id = e.target.id;
+    setToggle({ disabled: id });
+  };
+
+  const handleBlur = (e) => {
+    const newInfo = { ...info };
+    newInfo[e.target.name] = e.target.value;
+    setInfo(newInfo);
   };
   return (
     <>
@@ -142,9 +142,9 @@ const AddNewProduct = () => {
                 </div>
 
                 <div className="product-btn">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                  <Button className="promo-btn" type="submit" variant="warning">
+                    Add
+                  </Button>
                 </div>
               </form>
             </Card>

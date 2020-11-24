@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/homePage/home/Home";
 import AdminDashboard from "./components/adminPenal/adminDashboard/AdminDashboard";
 import AddNewProduct from "./components/adminPenal/addProducts/addNewProduct/AddNewProduct";
@@ -28,17 +28,39 @@ function App() {
     >
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/addNewProduct" component={AddNewProduct} />
-          <Route exact path="/cartItem" component={CartPage} />
-          <Route exact path="/orders" component={OrderDashboard} />
-          <Route exact path="/promoCode" component={PromoCodeDeshboard} />
-          <Route exact path="/addPromoCode" component={AddPromoCodeNew} />
-          <Route exact path="/pendingOrders" component={PendingOrder} />
-          <Route exact path="/confirmOrders" component={ConfirmOrder} />
-          <Route exact path="/cancelOrders" component={CancelOrder} />
-          <Route exact path="/login" component={LogIn} />
-          <Route exact path="/updatePromoCode/:id" component={PromoCodeEdit} />
+          <Route exact path="/">
+            <Home></Home>
+          </Route>
+          <Route exact path="/addNewProduct">
+            <AddNewProduct></AddNewProduct>
+          </Route>
+          <Route exact path="/cartItem">
+            <CartPage></CartPage>
+          </Route>
+          <PrivateRoute exact path="/orders">
+            <OrderDashboard></OrderDashboard>
+          </PrivateRoute>
+          <PrivateRoute exact path="/promoCode">
+            <PromoCodeDeshboard></PromoCodeDeshboard>
+          </PrivateRoute>
+          <PrivateRoute exact path="/addPromoCode">
+            <AddPromoCodeNew></AddPromoCodeNew>
+          </PrivateRoute>
+          <PrivateRoute exact path="/pendingOrders">
+            <PendingOrder></PendingOrder>
+          </PrivateRoute>
+          <PrivateRoute exact path="/confirmOrders">
+            <ConfirmOrder></ConfirmOrder>
+          </PrivateRoute>
+          <PrivateRoute exact path="/cancelOrders">
+            <CancelOrder></CancelOrder>
+          </PrivateRoute>
+          <Route exact path="/login">
+            <LogIn></LogIn>
+          </Route>
+          <PrivateRoute exact path="/updatePromoCode/:id">
+            <PromoCodeEdit></PromoCodeEdit>
+          </PrivateRoute>
           <PrivateRoute path="/admin">
             <AdminDashboard></AdminDashboard>
           </PrivateRoute>

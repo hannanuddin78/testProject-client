@@ -4,11 +4,21 @@ import Products from "./products/Products";
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
+
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/allProducts")
+    fetch("http://localhost:5000/allProducts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setAllProducts(data));
+      .then((data) => {
+        setAllProducts(data);
+      });
   }, []);
+
   return (
     <Col md={12}>
       <Row>

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const PromoDetails = ({ promoDet, index }) => {
   return (
-    <Container fluid>
-      <Row className="mb-5 mt-5 promoDetails">
+    <Container>
+      <Row className="mb-5 mt-4 promoDetails">
         <Col md={12}>
           <Row className="promo-edit">
             <Col md={6}>
@@ -19,12 +19,12 @@ const PromoDetails = ({ promoDet, index }) => {
                     Edit
                   </Button>
                 </Link>
-                {promoDet.active === "Active" && (
+                {promoDet.active.toString() === "Active" && (
                   <Button className="promo-btn" variant="outline-success">
                     {promoDet.active}
                   </Button>
                 )}
-                {promoDet.active === "Deactive" && (
+                {promoDet.active.toString() === "Deactive" && (
                   <Button className="promo-btn" variant="outline-danger">
                     {promoDet.active}
                   </Button>

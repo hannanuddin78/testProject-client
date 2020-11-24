@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -15,7 +15,24 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
-const CheckOutPopUp = ({ modalIsOpen, closeModal }) => {
+const CheckOutPopUp = ({ modalIsOpen, closeModal, cartItems }) => {
+  const history = useHistory();
+
+  const handleDeleteAll = () => {
+    fetch("http://localhost:5000/deleteAll/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result === true) {
+          history.push("/admin");
+        }
+      });
+  };
   return (
     <div>
       <Modal
@@ -26,9 +43,14 @@ const CheckOutPopUp = ({ modalIsOpen, closeModal }) => {
       >
         <div className="text-center p-5">
           <p>Your Order Placed SuccessFully</p>
-          <Link to="/admin">
-            <Button variant="warning">Go To Admin Panel</Button>
-          </Link>
+          {/* <Link to="">
+            <Button onClick={handleDeleteAll} variant="warning">
+              Go To Admin Panel
+            </Button>
+          </Link> */}
+          <Button onClick={handleDeleteAll} variant="warning">
+            Go To Admin Panel
+          </Button>
         </div>
       </Modal>
     </div>

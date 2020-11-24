@@ -5,33 +5,61 @@ import AllOrderDetails from "./allOrderDetails/AllOrderDetails";
 
 const OrderDetails = () => {
   const [allOrders, setAllOrders] = useState([]);
+  const [statusChange, setStatusChange] = useState({});
+
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/allOrders")
+    const abrotController = new AbortController();
+    const signal = abrotController.signal;
+
+    fetch(
+      "http://localhost:5000/allOrders",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      },
+      { signal: signal }
+    )
       .then((res) => res.json())
-      .then((data) => setAllOrders(data));
-  }, [allOrders]);
+      .then((data) => {
+        setAllOrders(data);
+      });
+    return function cleanup() {
+      abrotController.abort();
+    };
+  }, [statusChange]);
 
   return (
-    <Container fluid>
-      <Row className="mt-5">
+    <Container>
+      <Row className="mb-4">
         <Col md={2}>
           <Link to="/orders">
-            <Button variant="warning">All</Button>
+            <Button variant="warning" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+              All
+            </Button>
           </Link>
         </Col>
         <Col md={2}>
           <Link to="/pendingOrders">
-            <Button variant="warning">Pending</Button>
+            <Button variant="primary" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+              Pending
+            </Button>
           </Link>
         </Col>
         <Col md={2}>
           <Link to="/confirmOrders">
-            <Button variant="warning">Confirmed</Button>
+            <Button variant="success" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+              Confirmed
+            </Button>
           </Link>
         </Col>
         <Col md={2}>
           <Link to="/cancelOrders">
-            <Button variant="warning">Canceled</Button>
+            <Button variant="danger" style={{ paddingBottom: "20px", paddingRight: "70px" }}>
+              Canceled
+            </Button>
           </Link>
         </Col>
       </Row>
@@ -58,7 +86,13 @@ const OrderDetails = () => {
               </tr>
             </thead>
             {allOrders.map((allOrder, index) => (
-              <AllOrderDetails allOrders={allOrder} index={index} key={allOrder._id} />
+              <AllOrderDetails
+                allOrd={allOrder}
+                index={index}
+                key={allOrder._id}
+                statusChange={statusChange}
+                setStatusChange={setStatusChange}
+              />
             ))}
           </table>
         </Col>

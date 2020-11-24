@@ -1,24 +1,27 @@
 import React, { useContext, useEffect } from "react";
 import logo from "../../../image/logo.png";
-import { Container, Form, FormControl, Nav, Navbar, Row } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { UserContext } from "../../../App";
 
 const Header = () => {
-  const [cartLength, setCartLength] = useState([]);
+  const [cartLength, setCartLength] = useState({});
 
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue] = useContext(UserContext);
 
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/cartLength")
+    fetch("http://localhost:5000/cartLength", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    })
       .then((res) => res.json())
       .then((data) => setCartLength(data));
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`https://enigmatic-badlands-36963.herokuapp.com/searchProduct?search=${e.target.value}`)
+    fetch(`http://localhost:5000/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };

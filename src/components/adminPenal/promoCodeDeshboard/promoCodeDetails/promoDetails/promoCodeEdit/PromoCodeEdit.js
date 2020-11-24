@@ -12,6 +12,9 @@ const PromoCodeEdit = () => {
   const { id } = useParams();
   const [defaultCode, setDefaultCode] = useState([]);
   const [updateCodeInfo, setUpdateCodeInfo] = useState({});
+  console.log(updateCodeInfo);
+
+  const [toggle, setToggle] = useState({ disabled: "No" });
 
   const history = useHistory();
 
@@ -37,9 +40,19 @@ const PromoCodeEdit = () => {
     newInfo[e.target.name] = e.target.value;
     setUpdateCodeInfo(newInfo);
   };
+  const handleToggleBtn = (e) => {
+    const toggleId = e.target.id;
+    setToggle({ disabled: toggleId });
+  };
 
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/SeePromoCode")
+    fetch("http://localhost:5000/SeePromoCode", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         const editPromo = data.find((item) => item._id.toString() === id);
@@ -49,7 +62,7 @@ const PromoCodeEdit = () => {
 
   const handleUpdatePromoCode = () => {
     const updateInfo = { ...updateCodeInfo, ...updateDate, createDate: new Date() };
-    fetch(`https://enigmatic-badlands-36963.herokuapp.com/updatePromo/${id}`, {
+    fetch(`http://localhost:5000/updatePromo/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),
@@ -96,8 +109,7 @@ const PromoCodeEdit = () => {
                       allowKeyboardControl={false}
                       readOnly={true}
                       autoFill={false}
-                      defaultValue={defaultCode.startDate}
-                      value={updateDate.startDate}
+                      value={defaultCode.startDate}
                       onChange={handleDateStart}
                       disable
                       KeyboardButtonProps={{
@@ -140,11 +152,25 @@ const PromoCodeEdit = () => {
                 </div>
                 <div className="form-group">
                   <label>Active</label>
-                  <div className="float-right">
-                    <Button onBlur={handleBlur} variant="secondary" name="active" value="Active">
+                  <div onClick={handleToggleBtn} className="float-right">
+                    <Button
+                      onClick={handleBlur}
+                      disabled={toggle.disabled === "Yes"}
+                      id="Yes"
+                      variant="secondary"
+                      name="active"
+                      value="Active"
+                    >
                       Yes
                     </Button>
-                    <Button onBlur={handleBlur} variant="danger" name="active" value="Deactive">
+                    <Button
+                      onClick={handleBlur}
+                      disabled={toggle.disabled === "No"}
+                      id="No"
+                      variant="danger"
+                      name="active"
+                      value="Deactive"
+                    >
                       No
                     </Button>
                   </div>

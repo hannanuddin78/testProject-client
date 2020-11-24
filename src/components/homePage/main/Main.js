@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import { UserContext } from "../../../App";
 import ActiveProducts from "./activeProducts/ActiveProducts";
@@ -8,7 +8,13 @@ const Main = () => {
 
   useEffect(() => {
     const active = "Yes";
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/seeProducts/" + active)
+    fetch("http://localhost:5000/seeProducts/" + active, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   }, []);

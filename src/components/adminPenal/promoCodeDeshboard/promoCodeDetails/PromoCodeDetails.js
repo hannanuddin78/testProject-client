@@ -5,12 +5,19 @@ import PromoDetails from "./promoDetails/PromoDetails";
 
 const PromoCodeDetails = () => {
   const [promoCodeDetails, setPromoCodeDetails] = useState([]);
-  console.log(promoCodeDetails);
+
   useEffect(() => {
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/SeePromoCode")
+    fetch("http://localhost:5000/SeePromoCode", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setPromoCodeDetails(data));
   }, []);
+
   return (
     <div>
       <Link to="/addPromoCode">

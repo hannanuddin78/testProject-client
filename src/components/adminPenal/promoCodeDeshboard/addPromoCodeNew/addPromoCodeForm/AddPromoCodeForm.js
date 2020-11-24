@@ -7,7 +7,11 @@ import { useHistory } from "react-router-dom";
 
 const AddPromoCodeForm = () => {
   const [promoCodeInfo, setPromoCodeInfo] = useState({});
-  console.log(promoCodeInfo);
+  const [toggle, setToggle] = useState({ disabled: "Yes" });
+  const handleToggleBtn = (e) => {
+    const id = e.target.id;
+    setToggle({ disabled: id });
+  };
   const history = useHistory();
 
   const [selectedDate, setSelectedDate] = useState({
@@ -28,15 +32,15 @@ const AddPromoCodeForm = () => {
   };
 
   const handleBlur = (e) => {
-    let code = document.getElementById("promoCode").value.toUpperCase();
-    const newInfo = { ...promoCodeInfo, promoCode: code };
+    let code = document.getElementById("promoCode").value;
+    const newInfo = { ...promoCodeInfo, promoCode: code.toUpperCase() };
     newInfo[e.target.name] = e.target.value;
     setPromoCodeInfo(newInfo);
   };
 
   const handleAddPromoCode = () => {
     const CodeInfo = { ...promoCodeInfo, ...selectedDate, createDate: new Date() };
-    fetch("https://enigmatic-badlands-36963.herokuapp.com/addPromoCode", {
+    fetch("http://localhost:5000/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(CodeInfo),
@@ -95,11 +99,25 @@ const AddPromoCodeForm = () => {
           </div>
           <div className="form-group">
             <label>Active</label>
-            <div className="float-right">
-              <Button onBlur={handleBlur} variant="secondary" name="active" value="Active">
+            <div onClick={handleToggleBtn} className="float-right">
+              <Button
+                onClick={handleBlur}
+                disabled={toggle.disabled === "Yes"}
+                id="Yes"
+                variant="secondary"
+                name="active"
+                value="Active"
+              >
                 Yes
               </Button>
-              <Button onBlur={handleBlur} variant="danger" name="active" value="Deactive">
+              <Button
+                onClick={handleBlur}
+                disabled={toggle.disabled === "No"}
+                id="No"
+                variant="danger"
+                name="active"
+                value="Deactive"
+              >
                 No
               </Button>
             </div>
