@@ -15,6 +15,7 @@ import CancelOrder from "./components/adminPenal/order/orderDashboard/orderDetai
 import LogIn from "./components/login/LogIn";
 import PrivateRoute from "./components/login/PrivateRoute/PrivateRoute";
 import PromoCodeEdit from "./components/adminPenal/promoCodeDeshboard/promoCodeDetails/promoDetails/promoCodeEdit/PromoCodeEdit";
+import ProductEdit from "./components/adminPenal/addProducts/allProducts/products/productEdit/ProductEdit";
 
 export const UserContext = createContext();
 
@@ -37,8 +38,14 @@ function App() {
           <Route exact path="/cartItem">
             <CartPage></CartPage>
           </Route>
+          <PrivateRoute exact path="/admin">
+            <AdminDashboard></AdminDashboard>
+          </PrivateRoute>
           <PrivateRoute exact path="/orders">
             <OrderDashboard></OrderDashboard>
+          </PrivateRoute>
+          <PrivateRoute exact path="/productEdit/:pdId">
+            <ProductEdit></ProductEdit>
           </PrivateRoute>
           <PrivateRoute exact path="/promoCode">
             <PromoCodeDeshboard></PromoCodeDeshboard>
@@ -60,9 +67,6 @@ function App() {
           </Route>
           <PrivateRoute exact path="/updatePromoCode/:id">
             <PromoCodeEdit></PromoCodeEdit>
-          </PrivateRoute>
-          <PrivateRoute path="/admin">
-            <AdminDashboard></AdminDashboard>
           </PrivateRoute>
         </Switch>
       </Router>

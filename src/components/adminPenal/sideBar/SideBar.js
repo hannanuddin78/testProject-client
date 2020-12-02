@@ -1,14 +1,13 @@
 import React from "react";
-import "./SideBar.css";
-import { Col, Container, Nav, NavDropdown, Row } from "react-bootstrap";
+import { Col, Container, Nav, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div>
+    <>
       <Container>
         <Row>
-          <Col md={12} className="">
+          <Col md={12}>
             <Nav defaultActiveKey="/home" className="flex-column">
               <div className="dropdown">
                 <a
@@ -25,9 +24,9 @@ const SideBar = () => {
 
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <Link to="/promoCode">Promo Codes</Link>
-                  <a className="dropdown-item" href="/addPromoCode">
+                  <Link to="/addPromoCode" className="dropdown-item">
                     Add Promo Codes
-                  </a>
+                  </Link>
                 </div>
               </div>
               <Nav.Link as={Link} to="/orders" eventKey="link-1">
@@ -40,7 +39,7 @@ const SideBar = () => {
           </Col>
         </Row>
       </Container>
-    </div>
+    </>
   );
 };
 

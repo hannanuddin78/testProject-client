@@ -9,10 +9,9 @@ import OrderSummary from "./orderSummary/OrderSummary";
 
 const CartPage = () => {
   const [loggedInUser] = useContext(UserContext);
-
   const [cartItems, setCartItems] = useState([]);
-
   const [modalIsOpen, setIsOpen] = useState(false);
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -21,13 +20,19 @@ const CartPage = () => {
   };
 
   useEffect(() => {
+    // const ac = new AbortController();
     fetch("http://localhost:5000/allCartItems", {
       method: "GET",
       headers: { "Content-type": "application/json" },
+      // signal: ac.signal,
     })
       .then((res) => res.json())
-      .then((data) => setCartItems(data));
-  }, []);
+      .then((data) => setCartItems(data))
+      .catch((error) => {
+        console.error(error);
+      });
+    // return () => ac.abort();
+  }, [cartItems]);
 
   const handleSubmit = (e) => {
     fetch("http://localhost:5000/checkout", {
@@ -64,14 +69,6 @@ const CartPage = () => {
                   <input className="float-right" type="submit" name="checkout" value="CHECKOUT" />
                   <CheckOutPopUp modalIsOpen={modalIsOpen} closeModal={closeModal} />
                 </form>
-                {/* {cartItems.map((item) => (
-                  <CheckOutPopUp
-                    modalIsOpen={modalIsOpen}
-                    closeModal={closeModal}
-                    cartItems={item}
-                    key={item._id}
-                  />
-                ))} */}
               </Col>
             </Row>
           </Col>

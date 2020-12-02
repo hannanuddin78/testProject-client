@@ -12,8 +12,6 @@ const PromoCodeEdit = () => {
   const { id } = useParams();
   const [defaultCode, setDefaultCode] = useState([]);
   const [updateCodeInfo, setUpdateCodeInfo] = useState({});
-  console.log(updateCodeInfo);
-
   const [toggle, setToggle] = useState({ disabled: "No" });
 
   const history = useHistory();

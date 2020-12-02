@@ -7,6 +7,7 @@ const CartItemsDetails = ({ items }) => {
   const handleCancel = (e, id) => {
     fetch("http://localhost:5000/delete/" + id, {
       method: "DELETE",
+      headers: { "Content-type": "application/json" },
     })
       .then((res) => res.json())
       .then((result) => {

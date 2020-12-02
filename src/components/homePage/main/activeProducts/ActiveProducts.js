@@ -4,7 +4,6 @@ import { Card, Col } from "react-bootstrap";
 const ActiveProducts = ({ activePd }) => {
   const handleAddProduct = (activePd) => {
     const addKey = activePd;
-    console.log(addKey);
     const addCart = { ...addKey, quantity: 1 };
     fetch("http://localhost:5000/addToCart", {
       method: "POST",
@@ -13,14 +12,14 @@ const ActiveProducts = ({ activePd }) => {
         // authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
       body: JSON.stringify(addCart),
-    });
-    // .then((res) => res.json())
-    // .then((result) => {
-    //   alert("your order submit successful");
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        alert("your order submit successful");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

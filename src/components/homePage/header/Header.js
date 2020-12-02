@@ -12,12 +12,15 @@ const Header = () => {
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue] = useContext(UserContext);
 
   useEffect(() => {
+    // const ac = new AbortController();
     fetch("http://localhost:5000/cartLength", {
       method: "GET",
       headers: { "Content-type": "application/json" },
+      // signal: ac.signal,
     })
       .then((res) => res.json())
       .then((data) => setCartLength(data));
+    // return () => ac.abort();
   }, [cartLength]);
 
   const handleSearch = (e) => {
@@ -46,7 +49,11 @@ const Header = () => {
               <Nav.Link href="#home">
                 <FontAwesomeIcon icon={faShoppingCart} />
               </Nav.Link>
-              <Nav.Link href="/cartItem">Cart : {cartLength.length}</Nav.Link>
+              {cartLength.length > 0 ? (
+                <Nav.Link href="/cartItem">Cart : {cartLength.length}</Nav.Link>
+              ) : (
+                <Nav.Link href="/cartItem">Cart</Nav.Link>
+              )}
               <Nav.Link href="/admin">
                 <FontAwesomeIcon icon={faUser} />
               </Nav.Link>

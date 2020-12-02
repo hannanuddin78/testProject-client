@@ -1,3 +1,7 @@
+a:hover {
+  color: #0056b3;
+  text-decoration: none !important;
+}
 .header-container {
   border-bottom: 1px solid gray;
 }

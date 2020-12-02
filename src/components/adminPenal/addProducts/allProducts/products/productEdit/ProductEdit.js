@@ -1,54 +1,57 @@
-import React, { useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import AdminHeader from "../../adminHeader/AdminHeader";
-import SideBar from "../../sideBar/SideBar";
+import { Card } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useHistory, useParams } from "react-router-dom";
+import AdminHeader from "../../../../adminHeader/AdminHeader";
+import SideBar from "../../../../sideBar/SideBar";
 
-const AddNewProduct = () => {
-  const [info, setInfo] = useState({});
-  const [file, setFile] = useState(null);
-  const [toggle, setToggle] = useState({ disabled: "No" });
+const ProductEdit = () => {
+  let { pdId } = useParams();
+  const [chosePd, setChosePd] = useState({});
+  const [toggle, setToggle] = useState({ disabled: chosePd.active });
+  const [updatePd, setUpdatePd] = useState({});
   const history = useHistory();
 
-  const handleFileChange = (e) => {
-    const newFile = e.target.files[0];
-    setFile(newFile);
-  };
-
-  const handleSubmit = (e) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("pdName", info.productName);
-    formData.append("pdPrice", info.ProductPrice);
-    formData.append("disPrice", info.DiscountRate);
-    formData.append("shpPrice", info.shippingCharge);
-    formData.append("color", info.color);
-    formData.append("size", info.size);
-    formData.append("active", info.active);
-
-    fetch("http://localhost:5000/addProducts", {
-      method: "POST",
-      // headers: { "Content-Type": "application/json" },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        history.push("/admin");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    e.preventDefault();
-  };
-  const handleToggle = (e) => {
+  const handleToggleBtn = (e) => {
     const id = e.target.id;
     setToggle({ disabled: id });
   };
-
   const handleBlur = (e) => {
-    const newInfo = { ...info };
+    const newInfo = { ...updatePd };
     newInfo[e.target.name] = e.target.value;
-    setInfo(newInfo);
+    setUpdatePd(newInfo);
+  };
+  // useEffect(() => {
+  //   setUpdatePd(newInfo);
+  // })
+  useEffect(() => {
+    fetch("http://localhost:5000/allProducts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const csPd = data.find((pd) => pd._id.toString() === pdId);
+        setChosePd(csPd);
+      });
+  }, [pdId]);
+
+  const handleUpdateProduct = () => {
+    const updateInfo = { ...updatePd };
+    fetch(`http://localhost:5000/updateProduct/${pdId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ updateInfo }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response) {
+          history.push("/admin");
+        }
+      });
   };
   return (
     <>
@@ -59,22 +62,27 @@ const AddNewProduct = () => {
             <SideBar />
           </Col>
           <Col md={10}>
+            <Button onClick={() => history.goBack()} variant="outline-secondary">
+              Back
+            </Button>
             <Card className="product-form">
-              <form onSubmit={handleSubmit}>
+              <form>
                 <div className="form-group">
                   <label>Upload a image</label>
                   <input
-                    onChange={handleFileChange}
+                    disabled
                     type="file"
                     className="form-control"
+                    id="exampleInputPassword1"
                     placeholder="Picture"
                   />
                 </div>
                 <div className="form-group">
                   <label>Product Name</label>
                   <input
-                    onBlur={handleBlur}
+                    disabled
                     type="text"
+                    defaultValue={chosePd.pdName}
                     className="form-control"
                     name="productName"
                   />
@@ -84,8 +92,9 @@ const AddNewProduct = () => {
                   <input
                     onBlur={handleBlur}
                     type="text"
+                    defaultValue={chosePd.pdPrice}
                     className="form-control"
-                    name="ProductPrice"
+                    name="pdPrice"
                   />
                 </div>
                 <div className="form-group">
@@ -93,8 +102,9 @@ const AddNewProduct = () => {
                   <input
                     onBlur={handleBlur}
                     type="text"
+                    defaultValue={chosePd.disPrice}
                     className="form-control"
-                    name="DiscountRate"
+                    name="disPrice"
                   />
                 </div>
                 <div className="form-group">
@@ -102,21 +112,34 @@ const AddNewProduct = () => {
                   <input
                     onBlur={handleBlur}
                     type="text"
+                    defaultValue={chosePd.shpPrice}
                     className="form-control"
-                    name="shippingCharge"
+                    name="shpPrice"
                   />
                 </div>
                 <div className="form-group">
                   <label>Color</label>
-                  <input onBlur={handleBlur} type="text" className="form-control" name="color" />
+                  <input
+                    type="text"
+                    onBlur={handleBlur}
+                    defaultValue={chosePd.color}
+                    className="form-control"
+                    name="color"
+                  />
                 </div>
                 <div className="form-group">
                   <label>Size</label>
-                  <input onBlur={handleBlur} type="text" className="form-control" name="size" />
+                  <input
+                    type="text"
+                    onBlur={handleBlur}
+                    defaultValue={chosePd.size}
+                    className="form-control"
+                    name="size"
+                  />
                 </div>
                 <div className="form-group">
                   <label>Active</label>
-                  <div onClick={handleToggle} className="float-right" required>
+                  <div onClick={handleToggleBtn} className="float-right" required>
                     <Button
                       onClick={handleBlur}
                       disabled={toggle.disabled === "Yes"}
@@ -141,7 +164,7 @@ const AddNewProduct = () => {
                 </div>
 
                 <div className="product-btn">
-                  <Button className="promo-btn" type="submit" variant="warning">
+                  <Button className="promo-btn" onClick={handleUpdateProduct} variant="warning">
                     Add
                   </Button>
                 </div>
@@ -154,4 +177,4 @@ const AddNewProduct = () => {
   );
 };
 
-export default AddNewProduct;
+export default ProductEdit;

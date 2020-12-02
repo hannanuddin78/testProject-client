@@ -81,7 +81,7 @@ const LogIn = () => {
           setUser(newUserInfo);
           setLogin(newUserInfo);
           storeAuthToken();
-          sessionStorage.setItem("gmail", res.user.email);
+          sessionStorage.setItem("name", res.user.displayName);
         })
         .catch((err) => {
           console.log(err);
@@ -123,7 +123,7 @@ const LogIn = () => {
         setUser(signInUser);
         setLogin(signInUser);
         storeAuthToken();
-        sessionStorage.setItem("gmail", res.user.email);
+        sessionStorage.setItem("name", res.user.displayName);
       })
       .catch((err) => {
         console.log(err.message);

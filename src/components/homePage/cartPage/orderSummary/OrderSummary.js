@@ -1,18 +1,39 @@
 import React, { useContext, useState } from "react";
+import { useEffect } from "react";
 import { UserContext } from "../../../../App";
 
 const OrderSummary = ({ cartItems }) => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-
   const [promoCode, setPromoCode] = useState();
-
   const [applyPromoCode, setApplyPromoCode] = useState([]);
 
   const handlePromoCode = (e) => {
-    e.preventDefault();
     if (e.target.name === "code") {
       setPromoCode(e.target.value);
     }
+    e.preventDefault();
+  };
+
+  const handleSubmitCode = (e) => {
+    fetch("http://localhost:5000/applyPromoCode", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const aplCode = data.find((dt) => dt.promoCode.toString() === promoCode);
+        if (aplCode) {
+          const promoCodeDis = Math.round((subTotal * aplCode.discountRate) / 100);
+          const subTotal2 = subTotal - promoCodeDis;
+          const promoAllSubTotal = subTotal2 + ShpCharge;
+          const promoApply = { ...applyPromoCode, subTotal2, promoAllSubTotal };
+          setApplyPromoCode(promoApply);
+        } else {
+          const error = "Promo Code does not match,,try again";
+          setApplyPromoCode(error);
+        }
+      });
+    e.preventDefault();
   };
 
   const totalDis = cartItems.reduce((acc, item) => acc + parseInt(item.disPrice), 0);
@@ -26,29 +47,10 @@ const OrderSummary = ({ cartItems }) => {
 
   let ShpCharge = cartItems.reduce((total, prd) => total + parseInt(prd.shpPrice), 0);
 
-  const allPrice = subTotal + ShpCharge;
-
-  const handleSubmitCode = (e) => {
-    fetch("http://localhost:5000/applyPromoCode", {
-      method: "GET",
-      headers: { "Content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const aplCode = data.find((dt) => dt.promoCode.toString() === promoCode);
-        console.log(aplCode);
-        if (aplCode) {
-          const promoCodeDis = Math.round((subTotal * aplCode.discountRate) / 100);
-          const subTotal2 = subTotal - promoCodeDis;
-          const promoAllSubTotal = subTotal2 + ShpCharge;
-          const promoApply = { ...applyPromoCode, subTotal2, promoAllSubTotal };
-          setApplyPromoCode(promoApply);
-        }
-      });
-    e.preventDefault();
-  };
-
-  setLoggedInUser(allPrice);
+  let allPrice = subTotal + ShpCharge;
+  useEffect(() => {
+    setLoggedInUser(allPrice);
+  }, [allPrice]);
   return (
     <div className="orderSummary">
       <div className="orderSummeryText text-center">
@@ -78,6 +80,9 @@ const OrderSummary = ({ cartItems }) => {
       </div>
       <div className="applyCoupon">
         <form onSubmit={handleSubmitCode}>
+          {applyPromoCode.length >= 0 && (
+            <span style={{ color: "red", fontSize: "small" }}>{applyPromoCode}</span>
+          )}
           <input type="text" name="code" onChange={handlePromoCode} placeholder="Type Your Code" />
           <input type="submit" value="Apply" />
         </form>

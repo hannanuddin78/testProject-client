@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../App";
 import logoImg from "../../../image/logo.png";
 
 const AdminHeader = () => {
-  const [loggedInUser, setLoggedInUser, searchValue, setSearchValue, login, setLogin] = useContext(
-    UserContext
-  );
+  const userName = sessionStorage.getItem("name");
   return (
     <Container className="mt-3 mb-3">
       <Row>
@@ -16,7 +13,15 @@ const AdminHeader = () => {
             <img src={logoImg} alt="" />
           </Link>
         </Col>
-        <Col md={6}>{login.email && <h4 className="float-right mt-3">{login.name}</h4>}</Col>
+        <Col md={6}>
+          {userName ? (
+            <h4 className="float-right mt-3">{userName}</h4>
+          ) : (
+            <Link to="/login" style={{ textDecoration: "none", float: "right" }}>
+              Login
+            </Link>
+          )}
+        </Col>
       </Row>
     </Container>
   );
