@@ -4,6 +4,7 @@ a:hover {
 }
 .header-container {
   border-bottom: 1px solid gray;
+  background-color: #fff5e9;
 }
 .product-form {
   width: 400px;
