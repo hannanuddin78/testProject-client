@@ -26,7 +26,7 @@ const AddNewProduct = () => {
     formData.append("size", info.size);
     formData.append("active", info.active);
 
-    fetch("http://localhost:5000/addProducts", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/addProducts", {
       method: "POST",
       // headers: { "Content-Type": "application/json" },
       body: formData,

@@ -6,7 +6,7 @@ import logoImg from "../../../image/logo.png";
 const AdminHeader = () => {
   const userName = sessionStorage.getItem("name");
   return (
-    <Container className="mt-3 mb-3">
+    <Container fluid style={{ backgroundColor: "#fff5e9" }} className="pt-3 mb-3 pl-5 pr-5">
       <Row>
         <Col md={6}>
           <Link to="/">

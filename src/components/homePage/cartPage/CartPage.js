@@ -21,7 +21,7 @@ const CartPage = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("http://localhost:5000/allCartItems", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/allCartItems", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -35,7 +35,7 @@ const CartPage = () => {
   }, [cartItems]);
 
   const handleSubmit = (e) => {
-    fetch("http://localhost:5000/checkout", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/checkout", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ totalPrice: loggedInUser, status: "Pending" }),

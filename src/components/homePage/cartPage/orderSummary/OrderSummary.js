@@ -15,7 +15,7 @@ const OrderSummary = ({ cartItems }) => {
   };
 
   const handleSubmitCode = (e) => {
-    fetch("http://localhost:5000/applyPromoCode", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/applyPromoCode", {
       method: "GET",
       headers: { "Content-type": "application/json" },
     })

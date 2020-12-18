@@ -5,7 +5,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const CartItemsDetails = ({ items }) => {
   const handleCancel = (e, id) => {
-    fetch("http://localhost:5000/delete/" + id, {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/delete/" + id, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     })

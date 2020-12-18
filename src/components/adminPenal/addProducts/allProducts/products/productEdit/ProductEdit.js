@@ -25,7 +25,7 @@ const ProductEdit = () => {
   //   setUpdatePd(newInfo);
   // })
   useEffect(() => {
-    fetch("http://localhost:5000/allProducts", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/allProducts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const ProductEdit = () => {
 
   const handleUpdateProduct = () => {
     const updateInfo = { ...updatePd };
-    fetch(`http://localhost:5000/updateProduct/${pdId}`, {
+    fetch(`https://aqueous-sierra-94219.herokuapp.com/updateProduct/${pdId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),

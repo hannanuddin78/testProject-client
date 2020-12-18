@@ -9,7 +9,7 @@ const Main = () => {
   useEffect(() => {
     const ac = new AbortController();
     const active = "Yes";
-    fetch("http://localhost:5000/seeProducts/" + active, {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/seeProducts/" + active, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

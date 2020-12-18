@@ -19,7 +19,7 @@ const CheckOutPopUp = ({ modalIsOpen, closeModal, cartItems }) => {
   const history = useHistory();
 
   const handleDeleteAll = () => {
-    fetch("http://localhost:5000/deleteAll/", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/deleteAll/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

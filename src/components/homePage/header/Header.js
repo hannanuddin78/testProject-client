@@ -13,7 +13,7 @@ const Header = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("http://localhost:5000/cartLength", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/cartLength", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -24,7 +24,7 @@ const Header = () => {
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`http://localhost:5000/searchProduct?search=${e.target.value}`)
+    fetch(`https://aqueous-sierra-94219.herokuapp.com/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };

@@ -7,7 +7,7 @@ const PromoCodeDetails = () => {
   const [promoCodeDetails, setPromoCodeDetails] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/SeePromoCode", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/SeePromoCode", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

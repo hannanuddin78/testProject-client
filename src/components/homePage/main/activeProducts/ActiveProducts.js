@@ -5,7 +5,7 @@ const ActiveProducts = ({ activePd }) => {
   const handleAddProduct = (activePd) => {
     const addKey = activePd;
     const addCart = { ...addKey, quantity: 1 };
-    fetch("http://localhost:5000/addToCart", {
+    fetch("https://aqueous-sierra-94219.herokuapp.com/addToCart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
