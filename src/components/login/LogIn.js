@@ -6,6 +6,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const LogIn = () => {
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
   const [loggedInUser, setLoggedInUser, searchValue, setSearchValue, login, setLogin] = useContext(
     UserContext
   );
@@ -18,10 +21,6 @@ const LogIn = () => {
     error: "",
     success: "",
   });
-
-  if (firebase.apps.length === 0) {
-    firebase.initializeApp(firebaseConfig);
-  }
 
   const history = useHistory();
   const location = useLocation();
@@ -207,9 +206,9 @@ const LogIn = () => {
               </div>
             </form>
             <div className="d-flex justify-content-center">
-              <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
+              {/* <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
                 Continue with Google
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

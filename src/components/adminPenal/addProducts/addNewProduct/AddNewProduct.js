@@ -5,40 +5,67 @@ import AdminHeader from "../../adminHeader/AdminHeader";
 import SideBar from "../../sideBar/SideBar";
 
 const AddNewProduct = () => {
+  const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
-  const [file, setFile] = useState(null);
   const [toggle, setToggle] = useState({ disabled: "No" });
+  const [selectedFile, setSelectedFile] = useState();
   const history = useHistory();
 
-  const handleFileChange = (e) => {
-    const newFile = e.target.files[0];
-    setFile(newFile);
+  const handleFileInputChange = (e) => {
+    const fileImg = e.target.files[0];
+    setSelectedFile(fileImg);
+    setFile(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("pdName", info.productName);
-    formData.append("pdPrice", info.ProductPrice);
-    formData.append("disPrice", info.DiscountRate);
-    formData.append("shpPrice", info.shippingCharge);
-    formData.append("color", info.color);
-    formData.append("size", info.size);
-    formData.append("active", info.active);
+    e.preventDefault();
+    if (!selectedFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+    };
+    reader.onerror = () => {
+      console.error("AHHHHHHHH!!");
+    };
+  };
+  
+  const uploadImage = async (base64EncodedImage) => {
+    try {
+      await fetch("https://rocky-fortress-91922.herokuapp.com/api/upload", {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          sessionStorage.setItem("upImgLink", result.url);
+        });
+      setFile("");
+      handleAllDataSubmit();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    fetch("https://aqueous-sierra-94219.herokuapp.com/addProducts", {
+  const handleAllDataSubmit = () => {
+    const img = sessionStorage.getItem("upImgLink");
+    const totalData = { ...info, image:img };
+    fetch("https://rocky-fortress-91922.herokuapp.com/addProducts", {
       method: "POST",
-      // headers: { "Content-Type": "application/json" },
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(totalData),
     })
       .then((response) => response.json())
       .then((data) => {
+        sessionStorage.removeItem("upImgLink");
         history.push("/admin");
       })
       .catch((error) => {
         console.error(error);
       });
-    e.preventDefault();
   };
   const handleToggle = (e) => {
     const id = e.target.id;
@@ -64,47 +91,28 @@ const AddNewProduct = () => {
                 <div className="form-group">
                   <label>Upload a image</label>
                   <input
-                    onChange={handleFileChange}
+                    id="fileInput"
                     type="file"
-                    className="form-control"
-                    placeholder="Picture"
+                    name="image"
+                    onChange={handleFileInputChange}
+                    value={file}
                   />
                 </div>
                 <div className="form-group">
                   <label>Product Name</label>
-                  <input
-                    onBlur={handleBlur}
-                    type="text"
-                    className="form-control"
-                    name="productName"
-                  />
+                  <input onBlur={handleBlur} type="text" className="form-control" name="pdName" />
                 </div>
                 <div className="form-group">
                   <label>Product Price(Before Discount)</label>
-                  <input
-                    onBlur={handleBlur}
-                    type="text"
-                    className="form-control"
-                    name="ProductPrice"
-                  />
+                  <input onBlur={handleBlur} type="text" className="form-control" name="pdPrice" />
                 </div>
                 <div className="form-group">
                   <label>Discount Rate</label>
-                  <input
-                    onBlur={handleBlur}
-                    type="text"
-                    className="form-control"
-                    name="DiscountRate"
-                  />
+                  <input onBlur={handleBlur} type="text" className="form-control" name="disPrice" />
                 </div>
                 <div className="form-group">
                   <label>Shipping Charge</label>
-                  <input
-                    onBlur={handleBlur}
-                    type="text"
-                    className="form-control"
-                    name="shippingCharge"
-                  />
+                  <input onBlur={handleBlur} type="text" className="form-control" name="shpPrice" />
                 </div>
                 <div className="form-group">
                   <label>Color</label>
