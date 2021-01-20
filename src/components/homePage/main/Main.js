@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
-import { UserContext } from "../../../App";
+import { SearchContext } from "../../../App";
 import ActiveProducts from "./activeProducts/ActiveProducts";
 
 const Main = () => {
-  const [loggedInUser, setLoggedInUser, searchValue, setSearchValue] = useContext(UserContext);
+  const [searchValue, setSearchValue] = useContext(SearchContext);
 
   useEffect(() => {
     const ac = new AbortController();
     const active = "Yes";
-    fetch("https://aqueous-sierra-94219.herokuapp.com/seeProducts/" + active, {
+    fetch("http://localhost:4000/seeProducts/" + active, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

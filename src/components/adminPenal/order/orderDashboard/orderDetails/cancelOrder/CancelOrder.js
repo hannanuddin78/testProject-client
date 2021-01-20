@@ -10,7 +10,7 @@ const CancelOrder = () => {
 
   useEffect(() => {
     const cancel = "Cancel";
-    fetch("https://aqueous-sierra-94219.herokuapp.com/allOrders", {
+    fetch("http://localhost:4000/allOrders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

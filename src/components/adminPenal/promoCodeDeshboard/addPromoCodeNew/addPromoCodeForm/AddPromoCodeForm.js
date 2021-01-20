@@ -40,7 +40,7 @@ const AddPromoCodeForm = () => {
 
   const handleAddPromoCode = () => {
     const CodeInfo = { ...promoCodeInfo, ...selectedDate, createDate: new Date() };
-    fetch("https://aqueous-sierra-94219.herokuapp.com/addPromoCode", {
+    fetch("http://localhost:4000/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(CodeInfo),

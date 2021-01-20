@@ -5,7 +5,7 @@ const ActiveProducts = ({ activePd }) => {
   const handleAddProduct = (activePd) => {
     const addKey = activePd;
     const addCart = { ...addKey, quantity: 1 };
-    fetch("https://aqueous-sierra-94219.herokuapp.com/addToCart", {
+    fetch("http://localhost:4000/addToCart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const ActiveProducts = ({ activePd }) => {
             style={{ height: "200px" }}
             className="img-fluid"
             variant="top"
-            src={`data:image/png;base64,${activePd.image.img}`}
+            src={activePd.image}
           />
           <Card.Title>{activePd.pdName}</Card.Title>
           <Card.Text>

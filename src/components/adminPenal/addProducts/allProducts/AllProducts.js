@@ -7,7 +7,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://aqueous-sierra-94219.herokuapp.com/allProducts", {
+    fetch("http://localhost:4000/allProducts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

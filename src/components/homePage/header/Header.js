@@ -1,19 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React, {  useContext, useEffect } from "react";
 import logo from "../../../image/logo.png";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { UserContext } from "../../../App";
+import { SearchContext } from "../../../App";
 
 const Header = () => {
   const [cartLength, setCartLength] = useState({});
-
-  const [loggedInUser, setLoggedInUser, searchValue, setSearchValue] = useContext(UserContext);
+  const [searchValue, setSearchValue] = useContext(SearchContext);
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://aqueous-sierra-94219.herokuapp.com/cartLength", {
+    fetch("http://localhost:4000/cartLength", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -24,7 +23,7 @@ const Header = () => {
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`https://aqueous-sierra-94219.herokuapp.com/searchProduct?search=${e.target.value}`)
+    fetch(`http://localhost:4000/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };

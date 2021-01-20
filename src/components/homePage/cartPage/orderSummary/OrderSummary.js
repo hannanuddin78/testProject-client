@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { UserContext } from "../../../../App";
 
 const OrderSummary = ({ cartItems }) => {
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  const [userDetails, setUserDetails] = useContext(UserContext);
   const [promoCode, setPromoCode] = useState();
   const [applyPromoCode, setApplyPromoCode] = useState([]);
 
@@ -15,7 +15,7 @@ const OrderSummary = ({ cartItems }) => {
   };
 
   const handleSubmitCode = (e) => {
-    fetch("https://aqueous-sierra-94219.herokuapp.com/applyPromoCode", {
+    fetch("http://localhost:4000/applyPromoCode", {
       method: "GET",
       headers: { "Content-type": "application/json" },
     })
@@ -48,8 +48,9 @@ const OrderSummary = ({ cartItems }) => {
   let ShpCharge = cartItems.reduce((total, prd) => total + parseInt(prd.shpPrice), 0);
 
   let allPrice = subTotal + ShpCharge;
+  
   useEffect(() => {
-    setLoggedInUser(allPrice);
+    setUserDetails(allPrice);
   }, [allPrice]);
   return (
     <div className="orderSummary">

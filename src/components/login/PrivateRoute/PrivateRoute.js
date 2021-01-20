@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { UserContext } from "../../../App";
 import jwt_decode from "jwt-decode";
+import { LoginContext } from "../../../App";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const [login, setLogin] = useContext(UserContext);
+  const [login, setLogin] = useContext(LoginContext);
 
   const isLoggedIn = () => {
     const token = sessionStorage.getItem("token");

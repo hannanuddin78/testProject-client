@@ -44,7 +44,7 @@ const PromoCodeEdit = () => {
   };
 
   useEffect(() => {
-    fetch("https://aqueous-sierra-94219.herokuapp.com/SeePromoCode", {
+    fetch("http://localhost:4000/SeePromoCode", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const PromoCodeEdit = () => {
 
   const handleUpdatePromoCode = () => {
     const updateInfo = { ...updateCodeInfo, ...updateDate, createDate: new Date() };
-    fetch(`https://aqueous-sierra-94219.herokuapp.com/updatePromo/${id}`, {
+    fetch(`http://localhost:4000/updatePromo/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),

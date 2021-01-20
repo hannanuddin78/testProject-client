@@ -8,7 +8,7 @@ import CheckOutPopUp from "./orderSummary/checkOutPopUp/CheckOutPopUp";
 import OrderSummary from "./orderSummary/OrderSummary";
 
 const CartPage = () => {
-  const [loggedInUser] = useContext(UserContext);
+  const [userDetails] = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -21,7 +21,7 @@ const CartPage = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://aqueous-sierra-94219.herokuapp.com/allCartItems", {
+    fetch("http://localhost:4000/allCartItems", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -35,10 +35,10 @@ const CartPage = () => {
   }, [cartItems]);
 
   const handleSubmit = (e) => {
-    fetch("https://aqueous-sierra-94219.herokuapp.com/checkout", {
+    fetch("http://localhost:4000/checkout", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ totalPrice: loggedInUser, status: "Pending" }),
+      body: JSON.stringify({ totalPrice: userDetails, status: "Pending" }),
     })
       .then((response) => response.json())
       .then((data) => {

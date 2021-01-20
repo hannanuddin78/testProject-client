@@ -12,7 +12,7 @@ const Products = ({ pd }) => {
               style={{ width: "200px", height: "250px" }}
               className="img-fluid"
               variant="top"
-              src={`data:image/png;base64,${pd.image.img}`}
+              src={pd.image}
             />
             <Card.Title>
               <span>{pd.pdName}</span>

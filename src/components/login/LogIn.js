@@ -3,15 +3,13 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase.config";
 import { useHistory, useLocation } from "react-router-dom";
-import { UserContext } from "../../App";
+import { LoginContext } from "../../App";
 
 const LogIn = () => {
   if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
   }
-  const [loggedInUser, setLoggedInUser, searchValue, setSearchValue, login, setLogin] = useContext(
-    UserContext
-  );
+  const [login, setLogin] = useContext(LoginContext);
   const [ifNewUser, setIfNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignIn: false,
@@ -206,9 +204,9 @@ const LogIn = () => {
               </div>
             </form>
             <div className="d-flex justify-content-center">
-              {/* <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
+              <button onClick={handleGoogleSignInBtn} type="button" className="btn btn-success">
                 Continue with Google
-              </button> */}
+              </button>
             </div>
           </div>
         </div>

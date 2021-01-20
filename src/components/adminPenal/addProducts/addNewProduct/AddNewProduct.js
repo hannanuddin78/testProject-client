@@ -29,10 +29,10 @@ const AddNewProduct = () => {
       console.error("AHHHHHHHH!!");
     };
   };
-  
+
   const uploadImage = async (base64EncodedImage) => {
     try {
-      await fetch("https://rocky-fortress-91922.herokuapp.com/api/upload", {
+      await fetch("http://localhost:4000/api/upload", {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: {
@@ -52,8 +52,8 @@ const AddNewProduct = () => {
 
   const handleAllDataSubmit = () => {
     const img = sessionStorage.getItem("upImgLink");
-    const totalData = { ...info, image:img };
-    fetch("https://rocky-fortress-91922.herokuapp.com/addProducts", {
+    const totalData = { ...info, image: img };
+    fetch("http://localhost:4000/addProducts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(totalData),
