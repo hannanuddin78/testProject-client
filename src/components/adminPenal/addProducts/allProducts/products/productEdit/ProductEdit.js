@@ -25,7 +25,7 @@ const ProductEdit = () => {
   //   setUpdatePd(newInfo);
   // })
   useEffect(() => {
-    fetch("http://localhost:4000/allProducts", {
+    fetch("https://e-com-project-test-server.herokuapp.com/allProducts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const ProductEdit = () => {
 
   const handleUpdateProduct = () => {
     const updateInfo = { ...updatePd };
-    fetch(`http://localhost:4000/updateProduct/${pdId}`, {
+    fetch(`https://e-com-project-test-server.herokuapp.com/updateProduct/${pdId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),

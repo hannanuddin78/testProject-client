@@ -10,7 +10,7 @@ const ConfirmOrder = () => {
 
   useEffect(() => {
     const confirm = "Confirm";
-    fetch("http://localhost:4000/allOrders", {
+    fetch("https://e-com-project-test-server.herokuapp.com/allOrders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

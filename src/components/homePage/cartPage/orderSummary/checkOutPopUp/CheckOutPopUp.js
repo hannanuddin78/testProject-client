@@ -19,7 +19,7 @@ const CheckOutPopUp = ({ modalIsOpen, closeModal, cartItems }) => {
   const history = useHistory();
 
   const handleDeleteAll = () => {
-    fetch("http://localhost:4000/deleteAll/", {
+    fetch("https://e-com-project-test-server.herokuapp.com/deleteAll/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

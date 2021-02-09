@@ -1,4 +1,4 @@
-import React, {  useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import logo from "../../../image/logo.png";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ const Header = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("http://localhost:4000/cartLength", {
+    fetch("https://e-com-project-test-server.herokuapp.com/cartLength", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -23,7 +23,7 @@ const Header = () => {
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`http://localhost:4000/searchProduct?search=${e.target.value}`)
+    fetch(`https://e-com-project-test-server.herokuapp.com/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };

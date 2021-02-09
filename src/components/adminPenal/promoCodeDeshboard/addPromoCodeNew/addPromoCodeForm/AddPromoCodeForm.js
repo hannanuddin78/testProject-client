@@ -40,7 +40,7 @@ const AddPromoCodeForm = () => {
 
   const handleAddPromoCode = () => {
     const CodeInfo = { ...promoCodeInfo, ...selectedDate, createDate: new Date() };
-    fetch("http://localhost:4000/addPromoCode", {
+    fetch("https://e-com-project-test-server.herokuapp.com/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(CodeInfo),

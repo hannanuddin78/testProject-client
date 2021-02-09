@@ -21,7 +21,7 @@ const CartPage = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("http://localhost:4000/allCartItems", {
+    fetch("https://e-com-project-test-server.herokuapp.com/allCartItems", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -35,7 +35,7 @@ const CartPage = () => {
   }, [cartItems]);
 
   const handleSubmit = (e) => {
-    fetch("http://localhost:4000/checkout", {
+    fetch("https://e-com-project-test-server.herokuapp.com/checkout", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ totalPrice: userDetails, status: "Pending" }),

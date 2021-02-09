@@ -7,7 +7,7 @@ const PromoCodeDetails = () => {
   const [promoCodeDetails, setPromoCodeDetails] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/SeePromoCode", {
+    fetch("https://e-com-project-test-server.herokuapp.com/SeePromoCode", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

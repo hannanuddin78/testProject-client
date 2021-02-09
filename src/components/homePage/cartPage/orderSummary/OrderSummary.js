@@ -15,7 +15,7 @@ const OrderSummary = ({ cartItems }) => {
   };
 
   const handleSubmitCode = (e) => {
-    fetch("http://localhost:4000/applyPromoCode", {
+    fetch("https://e-com-project-test-server.herokuapp.com/applyPromoCode", {
       method: "GET",
       headers: { "Content-type": "application/json" },
     })
@@ -48,7 +48,7 @@ const OrderSummary = ({ cartItems }) => {
   let ShpCharge = cartItems.reduce((total, prd) => total + parseInt(prd.shpPrice), 0);
 
   let allPrice = subTotal + ShpCharge;
-  
+
   useEffect(() => {
     setUserDetails(allPrice);
   }, [allPrice]);

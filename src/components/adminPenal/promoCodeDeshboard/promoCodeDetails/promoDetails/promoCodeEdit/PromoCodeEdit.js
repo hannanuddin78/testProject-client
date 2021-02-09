@@ -44,7 +44,7 @@ const PromoCodeEdit = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:4000/SeePromoCode", {
+    fetch("https://e-com-project-test-server.herokuapp.com/SeePromoCode", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const PromoCodeEdit = () => {
 
   const handleUpdatePromoCode = () => {
     const updateInfo = { ...updateCodeInfo, ...updateDate, createDate: new Date() };
-    fetch(`http://localhost:4000/updatePromo/${id}`, {
+    fetch(`https://e-com-project-test-server.herokuapp.com/updatePromo/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),
