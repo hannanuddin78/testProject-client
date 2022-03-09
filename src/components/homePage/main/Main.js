@@ -9,7 +9,7 @@ const Main = () => {
   useEffect(() => {
     const ac = new AbortController();
     const active = "Yes";
-    fetch("https://e-com-project-test-server.herokuapp.com/seeProducts/" + active, {
+    fetch("https://ancient-bayou-19368.herokuapp.com/seeProducts/" + active, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

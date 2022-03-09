@@ -10,7 +10,7 @@ const CancelOrder = () => {
 
   useEffect(() => {
     const cancel = "Cancel";
-    fetch("https://e-com-project-test-server.herokuapp.com/allOrders", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/allOrders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

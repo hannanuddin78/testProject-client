@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../App";
 
 const OrderSummary = ({ cartItems }) => {
@@ -13,9 +12,9 @@ const OrderSummary = ({ cartItems }) => {
     }
     e.preventDefault();
   };
-
+  //console.log(cartItems);
   const handleSubmitCode = (e) => {
-    fetch("https://e-com-project-test-server.herokuapp.com/applyPromoCode", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/applyPromoCode", {
       method: "GET",
       headers: { "Content-type": "application/json" },
     })

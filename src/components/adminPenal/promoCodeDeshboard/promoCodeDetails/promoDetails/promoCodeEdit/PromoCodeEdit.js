@@ -1,10 +1,10 @@
+import DateFnsUtils from "@date-io/date-fns";
 import { Card } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import AdminHeader from "../../../../adminHeader/AdminHeader";
 import SideBar from "../../../../sideBar/SideBar";
 
@@ -44,7 +44,7 @@ const PromoCodeEdit = () => {
   };
 
   useEffect(() => {
-    fetch("https://e-com-project-test-server.herokuapp.com/SeePromoCode", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/SeePromoCode", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -56,11 +56,11 @@ const PromoCodeEdit = () => {
         const editPromo = data.find((item) => item._id.toString() === id);
         setDefaultCode(editPromo);
       });
-  }, []);
+  }, [id]);
 
   const handleUpdatePromoCode = () => {
     const updateInfo = { ...updateCodeInfo, ...updateDate, createDate: new Date() };
-    fetch(`https://e-com-project-test-server.herokuapp.com/updatePromo/${id}`, {
+    fetch(`https://ancient-bayou-19368.herokuapp.com/updatePromo/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),

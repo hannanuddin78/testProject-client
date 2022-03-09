@@ -25,7 +25,7 @@ const ProductEdit = () => {
   //   setUpdatePd(newInfo);
   // })
   useEffect(() => {
-    fetch("https://e-com-project-test-server.herokuapp.com/allProducts", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/allProducts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const ProductEdit = () => {
 
   const handleUpdateProduct = () => {
     const updateInfo = { ...updatePd };
-    fetch(`https://e-com-project-test-server.herokuapp.com/updateProduct/${pdId}`, {
+    fetch(`https://ancient-bayou-19368.herokuapp.com/updateProduct/${pdId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ updateInfo }),

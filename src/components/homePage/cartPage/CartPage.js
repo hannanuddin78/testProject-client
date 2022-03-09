@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { UserContext } from "../../../App";
 import Header from "../header/Header";
@@ -21,7 +20,7 @@ const CartPage = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://e-com-project-test-server.herokuapp.com/allCartItems", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/allCartItems", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -35,7 +34,7 @@ const CartPage = () => {
   }, [cartItems]);
 
   const handleSubmit = (e) => {
-    fetch("https://e-com-project-test-server.herokuapp.com/checkout", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/checkout", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ totalPrice: userDetails, status: "Pending" }),

@@ -10,7 +10,7 @@ const PendingOrder = () => {
 
   useEffect(() => {
     const pending = "Pending";
-    fetch("https://e-com-project-test-server.herokuapp.com/allOrders", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/allOrders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

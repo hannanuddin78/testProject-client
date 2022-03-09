@@ -12,7 +12,7 @@ const OrderDetails = () => {
     const signal = abrotController.signal;
 
     fetch(
-      "https://e-com-project-test-server.herokuapp.com/allOrders",
+      "https://ancient-bayou-19368.herokuapp.com/allOrders",
       {
         method: "GET",
         headers: {

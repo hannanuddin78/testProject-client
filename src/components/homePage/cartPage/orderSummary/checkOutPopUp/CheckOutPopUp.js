@@ -19,7 +19,7 @@ const CheckOutPopUp = ({ modalIsOpen, closeModal, cartItems }) => {
   const history = useHistory();
 
   const handleDeleteAll = () => {
-    fetch("https://e-com-project-test-server.herokuapp.com/deleteAll/", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/deleteAll/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

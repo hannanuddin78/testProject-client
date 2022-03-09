@@ -7,7 +7,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://e-com-project-test-server.herokuapp.com/allProducts", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/allProducts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

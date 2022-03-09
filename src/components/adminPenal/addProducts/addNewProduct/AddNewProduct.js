@@ -32,7 +32,7 @@ const AddNewProduct = () => {
 
   const uploadImage = async (base64EncodedImage) => {
     try {
-      await fetch("https://e-com-project-test-server.herokuapp.com/api/upload", {
+      await fetch("https://ancient-bayou-19368.herokuapp.com/api/upload", {
         method: "POST",
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: {
@@ -53,7 +53,7 @@ const AddNewProduct = () => {
   const handleAllDataSubmit = () => {
     const img = sessionStorage.getItem("upImgLink");
     const totalData = { ...info, image: img };
-    fetch("https://e-com-project-test-server.herokuapp.com/addProducts", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/addProducts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(totalData),

@@ -1,11 +1,11 @@
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const CartItemsDetails = ({ items }) => {
   const handleCancel = (e, id) => {
-    fetch("https://e-com-project-test-server.herokuapp.com/delete/" + id, {
+    fetch("https://ancient-bayou-19368.herokuapp.com/delete/" + id, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     })

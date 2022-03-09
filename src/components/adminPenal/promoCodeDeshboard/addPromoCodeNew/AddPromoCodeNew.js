@@ -8,7 +8,7 @@ const AddPromoCodeNew = () => {
   return (
     <>
       <AdminHeader />
-      <Container fluid>
+      <Container >
         <Row>
           <Col md={2}>
             <SideBar />

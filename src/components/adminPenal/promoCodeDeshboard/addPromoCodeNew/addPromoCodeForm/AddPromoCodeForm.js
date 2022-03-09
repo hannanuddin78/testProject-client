@@ -1,8 +1,8 @@
+import DateFnsUtils from "@date-io/date-fns";
+import Grid from "@material-ui/core/Grid";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 
 const AddPromoCodeForm = () => {
@@ -40,7 +40,7 @@ const AddPromoCodeForm = () => {
 
   const handleAddPromoCode = () => {
     const CodeInfo = { ...promoCodeInfo, ...selectedDate, createDate: new Date() };
-    fetch("https://e-com-project-test-server.herokuapp.com/addPromoCode", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/addPromoCode", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(CodeInfo),

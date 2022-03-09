@@ -6,7 +6,7 @@ const AllOrderDetails = ({ allOrd, index, statusChange, setStatusChange }) => {
     const newInfo = { ...statusChange };
     newInfo[e.target.name] = e.target.value;
     setStatusChange(newInfo);
-    fetch(`https://e-com-project-test-server.herokuapp.com/updateStatus/${allOrd._id}`, {
+    fetch(`https://ancient-bayou-19368.herokuapp.com/updateStatus/${allOrd._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ newInfo }),

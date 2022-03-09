@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import logo from "../../../image/logo.png";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useEffect, useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { SearchContext } from "../../../App";
+import logo from "../../../image/logo.png";
 
 const Header = () => {
   const [cartLength, setCartLength] = useState({});
@@ -12,7 +11,7 @@ const Header = () => {
 
   useEffect(() => {
     // const ac = new AbortController();
-    fetch("https://e-com-project-test-server.herokuapp.com/cartLength", {
+    fetch("https://ancient-bayou-19368.herokuapp.com/cartLength", {
       method: "GET",
       headers: { "Content-type": "application/json" },
       // signal: ac.signal,
@@ -23,7 +22,7 @@ const Header = () => {
   }, [cartLength]);
 
   const handleSearch = (e) => {
-    fetch(`https://e-com-project-test-server.herokuapp.com/searchProduct?search=${e.target.value}`)
+    fetch(`https://ancient-bayou-19368.herokuapp.com/searchProduct?search=${e.target.value}`)
       .then((res) => res.json())
       .then((data) => setSearchValue(data));
   };
